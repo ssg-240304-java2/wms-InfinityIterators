@@ -4,7 +4,7 @@ import com.infinityiterators.receipt.Controller.ReiceiptController;
 
 import java.util.Scanner;
 
-public class MainView {
+public class ReceiptView {
 
     public static void main(String[] args) {
 
