@@ -1,54 +1,41 @@
 package com.infinityiterators.bookwms.order.model.service;
 
-import com.infinityiterators.bookwms.order.mapper.OrderMapper;
-import com.infinityiterators.bookwms.order.model.dto.OrderDTO;
-import org.apache.ibatis.session.SqlSession;
+import com.infinityiterators.bookwms.order.dao.OrderDAO;
+import com.infinityiterators.bookwms.order.dto.OrderDTO;
+import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 
 import java.util.List;
 
-import static com.infinityiterators.bookwms.utils.database.MyBatisTemplate.getSqlSession;
-
 public class OrderService {
 
-    private OrderMapper orderMapper;
+    private final OrderDAO orderDAO = new OrderDAO();
 
-    public boolean createOrder(OrderDTO order) {
-        SqlSession sqlSession = getSqlSession();
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
-        int result = orderMapper.insertOrder(order);
-        sqlSession.close();
-        return result > 0;
+    public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
+        int result = orderDAO.insertOrder(order);
+        if (result > 0) {
+            int orderId = order.getOrderId();
+            for (OrderItemDTO item : orderItems) {
+                item.setOrderId(orderId);
+                orderDAO.insertOrderItem(item);
+            }
+            return true;
+        }
+        return false;
     }
 
     public OrderDTO getOrderById(int orderId) {
-        SqlSession sqlSession = getSqlSession();
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
-        OrderDTO order = orderMapper.selectOrderById(orderId);
-        sqlSession.close();
-        return order;
+        return orderDAO.selectOrderById(orderId);
     }
 
     public List<OrderDTO> getAllOrders() {
-        SqlSession sqlSession = getSqlSession();
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
-        List<OrderDTO> orderList = orderMapper.selectAllOrders();
-        sqlSession.close();
-        return orderList;
+        return orderDAO.selectAllOrders();
     }
 
     public boolean updateOrder(OrderDTO order) {
-        SqlSession sqlSession = getSqlSession();
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
-        int result = orderMapper.updateOrder(order);
-        sqlSession.close();
-        return result > 0;
+        return orderDAO.updateOrder(order) > 0;
     }
 
     public boolean deleteOrder(int orderId) {
-        SqlSession sqlSession = getSqlSession();
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
-        int result = orderMapper.deleteOrder(orderId);
-        sqlSession.close();
-        return result > 0;
+        return orderDAO.deleteOrder(orderId) > 0;
     }
 }

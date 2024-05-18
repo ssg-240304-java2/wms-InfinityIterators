@@ -1,4 +1,4 @@
-package com.infinityiterators.bookwms.order.model.dto;
+package com.infinityiterators.bookwms.order.dto;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 public class OrderDTO {
     private int orderId;
-    private int userId;
+    private int user_code;
     private Date orderDate;
     private String status;
 }

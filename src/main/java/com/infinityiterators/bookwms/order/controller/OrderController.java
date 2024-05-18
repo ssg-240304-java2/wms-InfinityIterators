@@ -1,9 +1,14 @@
 package com.infinityiterators.bookwms.order.controller;
 
-import com.infinityiterators.bookwms.order.model.dto.OrderDTO;
+import com.infinityiterators.bookwms.order.dto.OrderDTO;
+import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
+import com.infinityiterators.bookwms.order.mapper.OrderMapper;
 import com.infinityiterators.bookwms.order.model.service.OrderService;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+
+import static com.infinityiterators.bookwms.utils.database.MyBatisTemplate.getSqlSession;
 
 public class OrderController {
 
@@ -13,13 +18,37 @@ public class OrderController {
         orderService = new OrderService();
     }
 
-    public void createOrder(OrderDTO order) {
-        boolean isCreated = orderService.createOrder(order);
-        if (isCreated) {
-            System.out.println("주문이 성공적으로 생성되었습니다.");
-        } else {
-            System.out.println("주문 생성에 실패하였습니다.");
+    public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
+        SqlSession sqlSession = getSqlSession();
+        OrderMapper orderMapper = null;
+        try {
+            orderMapper = sqlSession.getMapper(OrderMapper.class);
+
+            // 주문 생성
+            int result = orderMapper.insertOrder(order);
+            if (result > 0) {
+                int orderId = order.getOrderId();
+
+                // 주문 항목 생성
+                for (OrderItemDTO item : orderItems) {
+                    item.setOrderId(orderId);
+                    orderMapper.insertOrderItem(item);
+                }
+                sqlSession.commit();
+                System.out.println("주문이 성공적으로 생성되었습니다.");
+            } else {
+                sqlSession.rollback();
+                System.out.println("주문 생성에 실패하였습니다.");
+            }
+        } catch (Exception e) {
+            sqlSession.rollback();
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
         }
+        return false;
     }
 
     public void getOrderById(int orderId) {
