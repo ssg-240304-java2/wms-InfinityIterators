@@ -69,14 +69,14 @@ public class OrderMainMenu {
 
     private static void orderBooks() {
         // TODO Auto-generated method stub
-        boolean ordering = true;
-        Scanner scanner = new Scanner(System.in);
+        boolean ordering = true; // 주문을 계속할지 여부를 나타내는 변수
+        // Scanner scanner = new Scanner(System.in);
 
         while (ordering) {
-            System.out.println("1. 전체 도서 목록 조회");
-            System.out.println("2. 도서 코드로 검색");
-            int searchOption = requestInt("검색 옵션을 선택해주세요");
+            displayMenuHeader("도서 주문 메뉴");
+            displaySelectionMenu("1. 전체 도서 목록 조회", "2. 도서 코드로 검색");
 
+            int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
                 case 1:
                     // 임시로 전체 도서 목록을 출력하는 기능
