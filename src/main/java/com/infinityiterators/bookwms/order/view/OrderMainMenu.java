@@ -60,6 +60,7 @@ public class OrderMainMenu {
 
             case 2:
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
+                orderController.selectAllOrder(); break;
                 break;
             default:
                 System.out.println("잘못된 메뉴를 선택하셨습니다.");

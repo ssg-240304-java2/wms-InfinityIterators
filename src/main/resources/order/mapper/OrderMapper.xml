@@ -26,7 +26,13 @@
         WHERE order_id = #{orderId}
     </update>
 
-    <delete id="deleteOrder" parameterType="int">
+<!-- 변경 전-->
+<!--    <delete id="deleteOrder" parameterType="int">-->
+<!--        DELETE FROM tbl_order-->
+<!--        WHERE order_id = #{orderId}-->
+<!--    </delete>-->
+<!-- 변경 후-->
+    <delete id="deleteOrder" parameterType="_int">
         DELETE FROM tbl_order
         WHERE order_id = #{orderId}
     </delete>
