@@ -22,5 +22,6 @@
 
     <mappers>
         <mapper resource="com/infinityiterators/bookwms/order/mapper/OrderMapper.xml"/>
+        <mapper resource="com/infinityiterators/receipt/mapper/ReceiptMapper.xml"/>
     </mappers>
 </configuration>

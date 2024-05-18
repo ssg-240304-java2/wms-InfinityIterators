@@ -1,49 +1,62 @@
 package com.infinityiterators.receipt.Controller;
 
 import com.infinityiterators.receipt.model.dto.BookDTO;
+import com.infinityiterators.receipt.model.dto.InRecordDTO;
 import com.infinityiterators.receipt.model.service.ReceiptService;
 
+import javax.xml.namespace.QName;
 import java.util.List;
+import java.util.Map;
 
 public class ReceiptController {
 
+
+    private final PrintResult printResult;
     private final ReceiptService receiptService;
 
     public ReceiptController() {
 
+        printResult = new PrintResult();
         receiptService = new ReceiptService();
     }
 
-    public void selectAllStock() {
+    public void selectAllBook() {
 
-        List<BookDTO> bookList = receiptService.selectAllStock();
+        List<BookDTO> bookList = receiptService.selectAllBook();
 
         if(bookList != null){
-            printResultList(bookList);
+            printResult.printResultList(bookList);
         } else{
-            printErrorMessage("selectList");
+            printResult.printErrorMessage("selectList");
         }
     }
 
-    public void selectStockIn() {
+    public void selectStockIn(Map<String ,String> parameter) {
+
+        String bookID = parameter.get("bookID");
+        int amount = Integer.parseInt(parameter.get("amount"));
+
+        InRecordDTO receipt = new InRecordDTO();
+        receipt.setBookID(bookID);
+        receipt.setInAmount(amount);
+
+        if(receiptService.selectStockIn(receipt)){
+            printResult.printSuccessMessage("insert");
+        } else{
+            printResult.printErrorMessage("insert");
+        }
+
     }
 
     public void selectOutOfStock() {
     }
 
-    public void printResultList(List<BookDTO> bookList){
+    public void printResultList(List<InRecordDTO> bookList){
 
-        for(BookDTO book : bookList){
+        for(InRecordDTO book : bookList){
             System.out.println(book);
         }
     }
 
-    public void printErrorMessage(String errorCode) {
 
-        String errorMessage = "";
-        switch (errorCode){
-            case "selectList" : errorMessage = "재고 현황 조회를 실패하였습니다."; break;
-        }
-        System.out.println(errorMessage);
-    }
 }

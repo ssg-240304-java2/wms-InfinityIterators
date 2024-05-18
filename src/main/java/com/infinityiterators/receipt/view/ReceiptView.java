@@ -2,6 +2,8 @@ package com.infinityiterators.receipt.view;
 
 import com.infinityiterators.receipt.Controller.ReceiptController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ReceiptView {
@@ -21,12 +23,35 @@ public class ReceiptView {
             int no = sc.nextInt();
 
             switch(no){
-                case 1: receiptController.selectAllStock(); break;
-                case 2: receiptController.selectStockIn(); break;
+                case 1: receiptController.selectAllBook(); break;
+                case 2: receiptController.selectStockIn(inputBook()); break;
                 case 3: receiptController.selectOutOfStock();break;
                 default:
                     System.out.println("잘못된 메뉴를 선택하셨습니다."); break;
             }
+
+            // 추가입고 여부 확인
+            System.out.print("추가 입고하시겠습니까? (Y/N) : ");
+            String answer = sc.nextLine();
+            if(!answer.equalsIgnoreCase("Y")){
+                break;
+            }
         } while (true);
+    }
+
+    private static Map<String, String> inputBook() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("도서 코드를 입력하세요 : ");
+        String bookID = sc.nextLine();
+        System.out.print("입고량을 입력하세요 : ");
+        String inAmount = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("", bookID);
+        parameter.put("inAmount", inAmount);
+
+        return parameter;
+
     }
 }

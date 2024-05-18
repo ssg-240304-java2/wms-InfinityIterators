@@ -16,4 +16,6 @@ public class BookDTO {
     private String ISBN;
     private String NationCode;
     private String GenreCode;
+
+    private int Amount;
 }

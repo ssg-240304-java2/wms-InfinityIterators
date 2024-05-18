@@ -9,9 +9,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class ReceiptDTO {
+public class InRecordDTO {
 
-    private String receiptID;
+    private String inRecordID;
     private int inAmount;
     private Date receiptDate;
     private String bookID;
