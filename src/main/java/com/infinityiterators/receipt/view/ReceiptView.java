@@ -1,6 +1,6 @@
 package com.infinityiterators.receipt.view;
 
-import com.infinityiterators.receipt.Controller.ReiceiptController;
+import com.infinityiterators.receipt.Controller.ReceiptController;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class ReceiptView {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        ReiceiptController reiceiptController = new ReiceiptController();
+        ReceiptController receiptController = new ReceiptController();
 
         do{         // Main Menu
             System.out.println("===== 서점 재고 관리 시스템 =====");
@@ -21,9 +21,9 @@ public class ReceiptView {
             int no = sc.nextInt();
 
             switch(no){
-                case 1: reiceiptController.selectAllStock(); break;
-                case 2: reiceiptController.selectStockIn(); break;
-                case 3: reiceiptController.selectOutOfStock();break;
+                case 1: receiptController.selectAllStock(); break;
+                case 2: receiptController.selectStockIn(); break;
+                case 3: receiptController.selectOutOfStock();break;
                 default:
                     System.out.println("잘못된 메뉴를 선택하셨습니다."); break;
             }
