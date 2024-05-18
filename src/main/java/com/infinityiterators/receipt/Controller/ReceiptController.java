@@ -5,11 +5,11 @@ import com.infinityiterators.receipt.model.service.ReceiptService;
 
 import java.util.List;
 
-public class ReiceiptController {
+public class ReceiptController {
 
     private final ReceiptService receiptService;
 
-    public ReiceiptController() {
+    public ReceiptController() {
 
         receiptService = new ReceiptService();
     }
