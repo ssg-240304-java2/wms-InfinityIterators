@@ -15,6 +15,16 @@ public class User {
     private String email;
     private String phone;
     private String address;
-    private String accountId;
     private Account account;    // Association
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
