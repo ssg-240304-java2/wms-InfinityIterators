@@ -4,19 +4,28 @@ import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.mapper.OrderMapper;
 import com.infinityiterators.bookwms.order.model.service.OrderService;
+import com.infinityiterators.bookwms.order.view.PrintResult;
 import com.infinityiterators.bookwms.utils.interaction.Console;
 import org.apache.ibatis.session.SqlSession;
+
 
 import java.util.List;
 
 import static com.infinityiterators.bookwms.utils.database.MyBatisTemplate.getSqlSession;
 
+
 public class OrderController {
+    private final PrintResult printResult;
 
     private final OrderService orderService;
 
+
+
     public OrderController() {
         orderService = new OrderService();
+/*추가 시작 라인*/
+        printResult = new PrintResult();
+/*추가 끝 라인*/
     }
 
     public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
@@ -92,11 +101,12 @@ public class OrderController {
 
     public void selectAllOrder() {
 
-        List<OrderDTO> OrderList = OrderService.selectAllOrder();
-        if(OrderList != null && !OrderList.isEmpty()) {
+        List<OrderDTO> orderList = orderService.selectAllOrder();
 
-            printError.
-
+        if(orderList != null && !orderList.isEmpty()) {
+            printResult.printOrderList(orderList);
+        } else {
+            printResult.printErrorMessage("selectListError");
         }
     }
 }

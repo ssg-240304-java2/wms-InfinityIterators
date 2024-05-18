@@ -1,12 +1,14 @@
 package com.infinityiterators.bookwms.order.view;
 
 import com.infinityiterators.bookwms.order.dto.OrderDTO;
+import com.infinityiterators.bookwms.order.model.service.OrderService;
 
 import java.util.List;
 
 public class PrintResult {
 
-    public void printMenuList(List<OrderDTO> orderList){
+
+    public void printOrderList(List<OrderDTO> orderList){
 
         for(OrderDTO order : orderList) {
             System.out.println(order);
@@ -23,12 +25,13 @@ public class PrintResult {
 
         String errorMessage = "";
         switch(errorId) {
-            case "selectList"   : errorMessage = "주문 목록 조회를 실패하였습니다.";     break;
-            case "selectDetail" : errorMessage = "주문 상세보기를 실패하였습니다.";      break;
-            case "selectCancel" : errorMessage = "주문 취소 목록 조회를 실패하였습니다."; break;
-            case "insert"       : errorMessage = "주문 등록를 실패하였습니다.";          break;
-            case "update"       : errorMessage = "주문 수정을 실패하였습니다.";          break;
-            case "delete"       : errorMessage = "주문 취소를 실패하였습니다.";          break;
+            case "selectListError"   : errorMessage = "주문 목록 조회를 실패하였습니다.";     break;
+            case "selectDetailError" : errorMessage = "주문 상세보기를 실패하였습니다.";      break;
+            case "selectCancelError" : errorMessage = "주문 취소 목록 조회를 실패하였습니다."; break;
+            case "insertError"       : errorMessage = "주문 등록를 실패하였습니다.";          break;
+            case "updateError"       : errorMessage = "주문 수정을 실패하였습니다.";          break;
+            case "deleteError"       : errorMessage = "주문 취소를 실패하였습니다.";          break;
+            case "unselectError"     : errorMessage = "잘못된 메뉴를 선택하셨습니다";          break;
         }
 
         System.out.println(errorMessage);
