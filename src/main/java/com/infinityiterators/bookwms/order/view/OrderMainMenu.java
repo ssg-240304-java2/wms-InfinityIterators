@@ -40,7 +40,7 @@ public class OrderMainMenu {
 
         int no = requestInt("메뉴를 선택해주세요");
         switch (no) {
-            case 1:
+            case 1: // 주문 하기 기능
                 orderBooks();
                 break;
             case 2:
@@ -64,7 +64,7 @@ public class OrderMainMenu {
             int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
                 case 1:
-                    // 전체 도서 목록을 출력하는 기능 selectAllStock로 전체 책 정보 조회
+                    // 전체 도서 목록을 출력하는 기능. 입출고의 도서 담당 파트의 전체 도서 출력 기능을 활용해야 함.
                     receiptController.selectAllStock();
                     break;
 
