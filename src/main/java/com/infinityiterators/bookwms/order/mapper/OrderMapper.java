@@ -8,15 +8,15 @@ import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 public interface OrderMapper {
     int insertOrder(OrderDTO order);
 
-    OrderDTO selectOrderById(int orderId);
-
-    List<OrderDTO> selectAllOrders();
+    int insertOrderItem(OrderItemDTO orderItem);
 
     int updateOrder(OrderDTO order);
 
     int deleteOrder(int orderId);
 
-    int insertOrderItem(OrderItemDTO orderItem);
+    OrderDTO selectOrderById(int orderId);
+
+    List<OrderDTO> selectAllOrders();
 
     List<OrderItemDTO> selectOrderItemsByOrderId(int orderId);
 }

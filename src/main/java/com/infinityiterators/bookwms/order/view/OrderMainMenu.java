@@ -98,13 +98,25 @@ public class OrderMainMenu {
 
         if (isOrderCreated) {
             Console.print("주문이 성공적으로 생성되었습니다.", DisplayType.SYSTEM, true);
-            printOrderDetails(order, orderItems);
+
+            String purchaseDecision = requestString("구매를 하시겠습니까? (Y/N)");
+            if (purchaseDecision.equalsIgnoreCase("Y")) {
+                boolean isOrderCompleted = orderController.completeOrder(order.getOrderId());
+                if (isOrderCompleted) {
+                    Console.print("구매가 성공적으로 완료되었습니다.", DisplayType.SYSTEM, true);
+                    printReceipt(order, orderItems); // 영수증 출력 메서드 호출
+                } else {
+                    Console.print("구매 완료에 실패하였습니다.", DisplayType.ERROR, true);
+                }
+            } else {
+                Console.print("구매가 취소되었습니다.", DisplayType.SYSTEM, true);
+            }
         } else {
             Console.print("주문 생성에 실패하였습니다.", DisplayType.ERROR, true);
         }
     }
 
-    private static void printOrderDetails(OrderDTO order, List<OrderItemDTO> orderItems) {
+    private static void printReceipt(OrderDTO order, List<OrderItemDTO> orderItems) {
         // DAO에서 주문서 데이터를 조회하는 기능 추가
         OrderDAO orderDAO = new OrderDAO();
         order = orderDAO.selectOrderById(order.getOrderId());
