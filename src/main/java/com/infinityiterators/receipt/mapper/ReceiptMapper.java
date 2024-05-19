@@ -33,5 +33,5 @@ public interface ReceiptMapper {
     @Insert("INSERT INTO InRecord" +
             "(BookID, InAmount)" +
             "VALUES (#{bookID}, #{inAmount})")
-    int insertMenu(InRecordDTO receipt);
+    int addNewBook(InRecordDTO receipt);
 }

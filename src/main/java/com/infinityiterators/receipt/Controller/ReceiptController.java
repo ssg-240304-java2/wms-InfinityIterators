@@ -31,22 +31,6 @@ public class ReceiptController {
         }
     }
 
-    public void selectStockIn(Map<String ,String> parameter) {
-
-        String bookID = parameter.get("bookID");
-        int amount = Integer.parseInt(parameter.get("amount"));
-
-        InRecordDTO receipt = new InRecordDTO();
-        receipt.setBookID(bookID);
-        receipt.setInAmount(amount);
-
-        if(receiptService.selectStockIn(receipt)){
-            printResult.printSuccessMessage("insert");
-        } else{
-            printResult.printErrorMessage("insert");
-        }
-
-    }
 
     public void selectOutOfStock() {
     }
@@ -59,4 +43,22 @@ public class ReceiptController {
     }
 
 
+    public void addNewBook(Map<String ,String> parameter) {
+
+        String bookID = parameter.get("bookID");
+        int amount = Integer.parseInt(parameter.get("amount"));
+
+        InRecordDTO receipt = new InRecordDTO();
+        receipt.setBookID(bookID);
+        receipt.setInAmount(amount);
+
+        if(receiptService.addNewBook(receipt)){
+            printResult.printSuccessMessage("insert");
+        } else{
+            printResult.printErrorMessage("insert");
+        }
+    }
+
+    public void updateBook(Map<String ,String> parameter) {
+    }
 }

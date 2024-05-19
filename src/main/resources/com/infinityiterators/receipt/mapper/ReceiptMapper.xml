@@ -15,4 +15,16 @@
         FROM tbl_book
         ORDER BY TITLE;
     </select>
+
+    <insert id="addNewBook">
+        INSERT INTO InRecord (
+        BookID
+        , InAmount
+        )
+        VALUES
+        (
+        #{ bookID }
+        , #{ inAmount }
+        )
+    </insert>
 </mapper>

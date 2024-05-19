@@ -24,12 +24,12 @@ public class ReceiptService {
         return bookList;
     }
 
-    public boolean selectStockIn(InRecordDTO receipt) {
+    public boolean addNewBook(InRecordDTO receipt) {
 
         SqlSession sqlSession = getSqlSession();
 
         receiptMapper = sqlSession.getMapper(ReceiptMapper.class);
-        int result = receiptMapper.insertMenu(receipt);
+        int result = receiptMapper.addNewBook(receipt);
 
         if(result > 0){
             sqlSession.commit();

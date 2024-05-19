@@ -18,7 +18,7 @@ public class PrintResult {
         String errorMessage = "";
         switch (errorCode){
             case "selectList" : errorMessage = "재고 현황 조회를 실패하였습니다."; break;
-            case "insert" : errorMessage = "도서 입고를 실패하였습니다."; break;
+            case "insert" : errorMessage = "신규 도서 입고를 실패하였습니다."; break;
         }
         System.out.println(errorMessage);
     }
@@ -27,7 +27,7 @@ public class PrintResult {
 
         String successMessage = "";
         switch(successCode){
-            case "insert" : successMessage = "도서 입고를 성공하였습니다."; break;
+            case "insert" : successMessage = "신규 도서 입고를 성공하였습니다."; break;
         }
         System.out.println(successMessage);
     }
