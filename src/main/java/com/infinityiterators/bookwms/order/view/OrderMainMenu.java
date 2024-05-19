@@ -17,11 +17,14 @@ import static com.infinityiterators.bookwms.utils.interaction.Menu.displayMenuHe
 import static com.infinityiterators.bookwms.utils.interaction.Menu.displaySelectionMenu;
 
 public class OrderMainMenu {
-
-    private static OrderController orderController = new OrderController();
     private static Cart cart = new Cart(1, 1); // 임시로 cartId와 userCode를 1로 설정
-
+    private static PrintResult printResult;
     public static void main(String[] args) {
+
+/*추가 시작 라인*/
+        Scanner sc = new Scanner(System.in);
+        OrderController orderController = new OrderController();
+/*추가 끝 라인*/
         // Scanner sc = new Scanner(System.in);
         // OrderController orderController = new OrderController();
         //
@@ -49,6 +52,7 @@ public class OrderMainMenu {
         // scanner 대신의 utils의 Input 클래스를 사용하여 사용자 입력을 받기 시도
 
         displayMenuHeader("주문 관리 시스템");
+        // case 1: 주문하기, case 2: 주문 목록 조회
         displaySelectionMenu("주문 하기", "주문 목록 조회");
 
         int no = requestInt("메뉴를 선택해주세요");
@@ -60,9 +64,13 @@ public class OrderMainMenu {
 
             case 2:
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
-                break;
+                orderController.selectAllOrder(); break;
+
             default:
-                System.out.println("잘못된 메뉴를 선택하셨습니다.");
+/*변경 전*/
+//                System.out.println("잘못된 메뉴를 선택하셨습니다.");
+/*변경 후*/
+                printResult.printErrorMessage("unselectError");
                 break;
         }
     }
@@ -90,7 +98,10 @@ public class OrderMainMenu {
                     break;
 
                 default:
-                    System.out.println("잘못된 옵션을 선택하셨습니다.");
+/*변경 전*/
+//                    System.out.println("잘못된 메뉴를 선택하셨습니다."); break;
+/*변경 후*/
+                    printResult.printErrorMessage("unselectError");
                     continue;
             }
 
@@ -110,6 +121,9 @@ public class OrderMainMenu {
     }
 
     private static void checkout() {
+/*추가 시작 라인*/
+        OrderController orderController = new OrderController();
+/*추가 끝 라인*/
         List<OrderItemDTO> orderItems = new ArrayList<>();
         for (CartItemDTO cartItem : cart.getItems()) {
             OrderItemDTO orderItem = new OrderItemDTO(0, 0, cartItem.getBookId(), cartItem.getQuantity());

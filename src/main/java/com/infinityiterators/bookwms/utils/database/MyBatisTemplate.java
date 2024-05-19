@@ -23,4 +23,8 @@ public class MyBatisTemplate {
     public static SqlSession getSqlSession() {
         return SqlSessionFactoryHolder.INSTANCE.openSession(false);
     }
+
+
+
+
 }
