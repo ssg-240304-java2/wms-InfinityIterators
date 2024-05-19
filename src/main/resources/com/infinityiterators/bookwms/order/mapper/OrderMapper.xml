@@ -5,23 +5,23 @@
 
 <mapper namespace="com.infinityiterators.bookwms.order.mapper.OrderMapper">
     <insert id="insertOrder" parameterType="com.infinityiterators.bookwms.order.dto.OrderDTO">
-        INSERT INTO tbl_order (user_id, order_date, status)
+        INSERT INTO 'Order' (user_id, order_date, status)
         VALUES (#{userId}, #{orderDate}, #{status})
     </insert>
 
     <select id="selectOrderById" resultType="com.infinityiterators.bookwms.order.dto.OrderDTO">
         SELECT order_id, user_id, order_date, status
-        FROM tbl_order
+        FROM 'Order'
         WHERE order_id = #{orderId}
     </select>
 
     <select id="selectAllOrders" resultType="com.infinityiterators.bookwms.order.dto.OrderDTO">
         SELECT order_id, user_id, order_date, status
-        FROM tbl_order
+        FROM 'Order'
     </select>
 
     <update id="updateOrder" parameterType="com.infinityiterators.bookwms.order.dto.OrderDTO">
-        UPDATE tbl_order
+        UPDATE 'Order'
         SET user_id = #{userId}, order_date = #{orderDate}, status = #{status}
         WHERE order_id = #{orderId}
     </update>
@@ -29,20 +29,20 @@
     <!-- 취소용 목록 조회 추가 라인-->
     <select id="selectAllOrder" resultType="com.infinityiterators.bookwms.order.dto.OrderDTO">
         SELECT order_id, user_id, order_date, status
-        FROM tbl_order
+        FROM 'Order'
     </select>
     <!--취소용 목록 조회 추가 라인-->
 
-<!--변경 전 라인-->
-<!--    <delete id="deleteOrder" parameterType="int">-->
-<!--        DELETE FROM tbl_order-->
-<!--        WHERE order_id = #{orderId}-->
-<!--    </delete>-->
-<!--변경 전 라인-->
-<!-- 변경 후 라인-->
+    <!--변경 전 라인-->
+    <!--    <delete id="deleteOrder" parameterType="int">-->
+    <!--        DELETE FROM tbl_order-->
+    <!--        WHERE order_id = #{orderId}-->
+    <!--    </delete>-->
+    <!--변경 전 라인-->
+    <!-- 변경 후 라인-->
     <delete id="deleteOrder" parameterType="_int">
-        DELETE FROM tbl_order
+        DELETE FROM 'Order'
         WHERE order_id = #{orderId}
     </delete>
-<!-- 변경 후 라인-->
+    <!-- 변경 후 라인-->
 </mapper>
