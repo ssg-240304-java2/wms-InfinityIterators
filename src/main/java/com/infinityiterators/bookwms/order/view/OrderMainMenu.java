@@ -59,7 +59,7 @@ public class OrderMainMenu {
 
         while (ordering) {
             displayMenuHeader("도서 주문 메뉴");
-            displaySelectionMenu("1. 전체 도서 목록 조회", "2. 도서 코드로 검색");
+            displaySelectionMenu("전체 도서 목록 조회", "도서 코드로 검색");
 
             int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
