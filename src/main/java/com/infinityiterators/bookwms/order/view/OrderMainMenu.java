@@ -26,7 +26,12 @@ public class OrderMainMenu {
     private static ReceiptController receiptController = new ReceiptController();
 
     public static void main(String[] args) {
+        while (true) {
+            displayMainMenu();
+        }
+    }
 
+    private static void displayMainMenu() {
         displayMenuHeader("주문 관리 시스템");
         displaySelectionMenu("주문 하기", "주문 목록 조회");
 
@@ -35,7 +40,6 @@ public class OrderMainMenu {
             case 1:
                 orderBooks();
                 break;
-
             case 2:
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
                 break;
