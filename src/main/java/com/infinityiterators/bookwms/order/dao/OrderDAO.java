@@ -35,6 +35,13 @@ public class OrderDAO {
         }
     }
 
+    public List<OrderDTO> selectAllOrder() { // 취소용 조회
+        try (SqlSession sqlSession = getSqlSession()) {
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            return orderMapper.selectAllOrder();
+        }
+    }
+
     public int updateOrder(OrderDTO order) { // 주문 수정
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
@@ -61,7 +68,6 @@ public class OrderDAO {
             return result;
         }
     }
-
 
     public List<OrderItemDTO> getOrderItemsByOrderId(int orderId) { // 주문 항목 조회
         try (SqlSession sqlSession = getSqlSession()) {

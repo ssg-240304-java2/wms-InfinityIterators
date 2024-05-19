@@ -4,6 +4,7 @@ import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.mapper.OrderMapper;
 import com.infinityiterators.bookwms.order.model.service.OrderService;
+import com.infinityiterators.bookwms.order.view.PrintResult;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -11,6 +12,13 @@ import java.util.List;
 import static com.infinityiterators.bookwms.utils.database.MyBatisTemplate.getSqlSession;
 
 public class OrderController {
+    private final PrintResult printResult;
+    private final OrderService orderService;
+
+    public OrderController() {
+        orderService = new OrderService();
+        printResult = new PrintResult();
+    }
 
     public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
         SqlSession sqlSession = getSqlSession();
@@ -79,4 +87,21 @@ public class OrderController {
         // todo: 도서 코드로 도서 정보 조회하는 기능 구현
     }
 
+    public void deleteOrder(int orderId) {
+        boolean isDeleted = orderService.deleteOrder(orderId);
+        if (isDeleted) {
+            System.out.println("주문이 성공적으로 삭제되었습니다.");
+        } else {
+            System.out.println("주문 삭제에 실패하였습니다.");
+        }
+    }
+
+    public void selectAllOrder() {
+        List<OrderDTO> orderList = orderService.selectAllOrder();
+        if (orderList != null && !orderList.isEmpty()) {
+            printResult.printOrderList(orderList);
+        } else {
+            printResult.printErrorMessage("selectListError");
+        }
+    }
 }

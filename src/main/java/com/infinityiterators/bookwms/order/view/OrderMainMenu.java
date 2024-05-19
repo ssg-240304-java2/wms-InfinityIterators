@@ -20,12 +20,15 @@ import static com.infinityiterators.bookwms.utils.interaction.Menu.displayMenuHe
 import static com.infinityiterators.bookwms.utils.interaction.Menu.displaySelectionMenu;
 
 public class OrderMainMenu {
-
+    private static PrintResult printResult;
     private static OrderController orderController = new OrderController();
     private static Cart cart = new Cart(1, 1); // 임시로 cartId와 userCode를 1로 설정
     private static ReceiptController receiptController = new ReceiptController();
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        OrderController orderController = new OrderController();
+
         while (true) {
             displayMainMenu();
         }
@@ -42,9 +45,10 @@ public class OrderMainMenu {
                 break;
             case 2:
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
+                orderController.selectAllOrder();
                 break;
             default:
-                Console.print("잘못된 메뉴를 선택하셨습니다.", DisplayType.ERROR, true);
+                printResult.printErrorMessage("unselectError");
                 break;
         }
     }

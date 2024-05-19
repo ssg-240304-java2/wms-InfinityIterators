@@ -19,4 +19,6 @@ public interface OrderMapper {
     List<OrderDTO> selectAllOrders();
 
     List<OrderItemDTO> selectOrderItemsByOrderId(int orderId);
+
+    List<OrderDTO> selectAllOrder(); // 취소용 조회
 }
