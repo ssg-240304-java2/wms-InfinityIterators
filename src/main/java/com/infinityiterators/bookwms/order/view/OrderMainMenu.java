@@ -1,11 +1,13 @@
 package com.infinityiterators.bookwms.order.view;
 
 import com.infinityiterators.bookwms.order.controller.OrderController;
+import com.infinityiterators.bookwms.order.dao.OrderDAO;
 import com.infinityiterators.bookwms.order.dto.CartItemDTO;
 import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.model.Cart;
 import com.infinityiterators.bookwms.order.model.CartItem;
+import com.infinityiterators.receipt.Controller.ReceiptController;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,33 +22,9 @@ public class OrderMainMenu {
 
     private static OrderController orderController = new OrderController();
     private static Cart cart = new Cart(1, 1); // 임시로 cartId와 userCode를 1로 설정
+    private static ReceiptController receiptController = new ReceiptController();
 
     public static void main(String[] args) {
-        // Scanner sc = new Scanner(System.in);
-        // OrderController orderController = new OrderController();
-        //
-        // do {
-        // System.out.println("===== 주문 관리 시스템 =====");
-        // System.out.println("1. 주문 하기");
-        // System.out.println("2. 주문 목록 조회");
-        // System.out.println("==========================");
-        // System.out.print("메뉴를 선택해주세요 : ");
-        // int no = sc.nextInt();
-        //
-        // switch (no) {
-        // case 1:
-        // // todo : 주문하기 메뉴로 이동.
-        // break;
-        // case 2:
-        // // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
-        // break;
-        // default:
-        // System.out.println("잘못된 메뉴를 선택하셨습니다.");
-        // break;
-        // }
-        // } while (true);
-
-        // scanner 대신의 utils의 Input 클래스를 사용하여 사용자 입력을 받기 시도
 
         displayMenuHeader("주문 관리 시스템");
         displaySelectionMenu("주문 하기", "주문 목록 조회");
@@ -55,7 +33,6 @@ public class OrderMainMenu {
         switch (no) {
             case 1:
                 orderBooks();
-
                 break;
 
             case 2:
@@ -68,9 +45,8 @@ public class OrderMainMenu {
     }
 
     private static void orderBooks() {
-        // TODO Auto-generated method stub
+        // 주문 메뉴에서 도서 주문을 처리하는 기능
         boolean ordering = true; // 주문을 계속할지 여부를 나타내는 변수
-        // Scanner scanner = new Scanner(System.in);
 
         while (ordering) {
             displayMenuHeader("도서 주문 메뉴");
@@ -79,14 +55,14 @@ public class OrderMainMenu {
             int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
                 case 1:
-                    // 임시로 전체 도서 목록을 출력하는 기능
-                    System.out.println("전체 도서 목록을 출력합니다. (임시)");
+                    // 전체 도서 목록을 출력하는 기능 selectAllStock로 전체 책 정보 조회
+                    receiptController.selectAllStock();
                     break;
 
                 case 2:
                     String bookCode = requestString("도서 코드를 입력해주세요");
-                    // 임시로 도서 코드를 검색하는 기능
-                    System.out.println("도서 코드 " + bookCode + "로 검색한 결과를 출력합니다. (임시)");
+                    // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
+                    orderController.searchBookByCode(bookCode);
                     break;
 
                 default:
@@ -121,8 +97,25 @@ public class OrderMainMenu {
 
         if (isOrderCreated) {
             System.out.println("주문이 성공적으로 완료되었습니다.");
+            printOrderDetails(order, orderItems);
         } else {
             System.out.println("주문에 실패하였습니다.");
+        }
+    }
+
+    private static void printOrderDetails(OrderDTO order, List<OrderItemDTO> orderItems) {
+        // DAO에서 주문서 데이터를 조회하는 기능 추가
+        OrderDAO orderDAO = new OrderDAO();
+        order = orderDAO.selectOrderById(order.getOrderId());
+        orderItems = orderDAO.getOrderItemsByOrderId(order.getOrderId());
+
+        System.out.println("주문서 정보:");
+        System.out.println("주문 번호: " + order.getOrderId());
+        System.out.println("사용자 코드: " + order.getUser_code());
+        System.out.println("주문 날짜: " + order.getOrderDate());
+        System.out.println("주문 상태: " + order.getStatus());
+        for (OrderItemDTO orderItem : orderItems) {
+            System.out.println("책 ID: " + orderItem.getBookId() + ", 수량: " + orderItem.getQuantity());
         }
     }
 }

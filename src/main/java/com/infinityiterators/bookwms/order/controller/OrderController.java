@@ -4,6 +4,7 @@ import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.mapper.OrderMapper;
 import com.infinityiterators.bookwms.order.model.service.OrderService;
+import com.infinityiterators.receipt.model.dto.BookDTO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -51,7 +52,8 @@ public class OrderController {
         return false;
     }
 
-    public void getOrderById(int orderId) {
+
+    public void getOrderById(int orderId) { // 주문 조회
         OrderDTO order = orderService.getOrderById(orderId);
         if (order != null) {
             System.out.println(order);
@@ -87,5 +89,9 @@ public class OrderController {
         } else {
             System.out.println("주문 삭제에 실패하였습니다.");
         }
+    }
+
+    public void searchBookByCode(String bookCode) {
+        // todo: 도서 코드로 도서 정보 조회하는 기능 구현
     }
 }
