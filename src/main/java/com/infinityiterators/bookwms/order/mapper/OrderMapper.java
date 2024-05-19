@@ -17,4 +17,8 @@ public interface OrderMapper {
     int deleteOrder(int orderId);
 
     int insertOrderItem(OrderItemDTO orderItem);
+
+    /*시작 라인 (취소용 조회)*/
+    List<OrderDTO> selectAllOrder();
+    /*끝 라인 */
 }

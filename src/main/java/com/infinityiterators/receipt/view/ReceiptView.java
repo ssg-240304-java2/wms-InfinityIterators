@@ -1,6 +1,9 @@
 package com.infinityiterators.receipt.view;
 
 import com.infinityiterators.receipt.Controller.ReceiptController;
+import com.infinityiterators.receipt.model.dto.BookDTO;
+import com.infinityiterators.receipt.model.dto.InRecordDTO;
+import com.infinityiterators.receipt.model.dto.StockDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,21 +50,6 @@ public class ReceiptView {
         } while (true);
     }
 
-    private static Map<String, String> inputBook() {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.print("도서 코드를 입력하세요 : ");
-        String bookID = sc.nextLine();
-        System.out.print("입고량을 입력하세요 : ");
-        String inAmount = sc.nextLine();
-
-        Map<String, String> parameter = new HashMap<>();
-        parameter.put("bookID", bookID);
-        parameter.put("inAmount", inAmount);
-
-        return parameter;
-
-    }
 
     public static void receiptSubMenu() {
 
@@ -81,7 +69,7 @@ public class ReceiptView {
                     receiptController.addNewBook(inputBook());
                     break;
                 case 2:
-                    receiptController.updateBook(inputBook());
+                    receiptController.updateBook(inputModifyMenu());
                     break;
 
                 default:
@@ -89,6 +77,44 @@ public class ReceiptView {
                     break;
             }
         } while (true);
+    }
+
+    private static BookDTO inputBook() {        // 신규 도서 입력. 수량 빼고 도서 정보만 입력.
+
+        Scanner sc = new Scanner(System.in);
+//        System.out.print("도서 코드를 입력하세요 : ");      // auto increment 처리하기
+//        String bookID = sc.nextLine();
+        System.out.print("도서 제목을 입력하세요 : ");
+        String title = sc.nextLine();
+        System.out.print("저자를 입력하세요 : ");
+        String author = sc.nextLine();
+        System.out.print("출판사를 입력하세요 : ");
+        String publisher = sc.nextLine();
+
+
+        BookDTO parameter = new BookDTO();
+        parameter.setBookID(title);
+        parameter.setAuthor(author);
+        parameter.setPublisher(publisher);
+
+        return parameter;
+
+    }
+
+    private static StockDTO inputModifyMenu() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("입고할 도서 코드를 입력하세요 : ");
+        String bookID = sc.nextLine();
+        System.out.print("입고량을 입력하세요 : ");
+        int inAmount = sc.nextInt();
+        sc.nextLine();
+
+        StockDTO parameter = new StockDTO();
+        parameter.setBookID(bookID);
+        parameter.setAmount(inAmount);
+
+        return parameter;
     }
 }
 

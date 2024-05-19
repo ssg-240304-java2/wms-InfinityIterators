@@ -2,6 +2,8 @@ package com.infinityiterators.receipt.model.dto;
 
 import lombok.*;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,5 +19,6 @@ public class BookDTO {
     private String NationCode;
     private String GenreCode;
 
-    private int Amount;
+    private int inAmount;       // 입고량
+    private Date receiptDate;       // 입고일
 }

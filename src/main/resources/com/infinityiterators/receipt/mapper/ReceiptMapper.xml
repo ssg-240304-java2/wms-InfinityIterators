@@ -17,14 +17,22 @@
     </select>
 
     <insert id="addNewBook">
-        INSERT INTO InRecord (
-        BookID
-        , InAmount
+        INSERT INTO Book (
+            Title
+        , Author
+        , Publisher
         )
         VALUES
         (
-        #{ bookID }
-        , #{ inAmount }
+            #{ title }
+        , #{ author }
+        , #{ publisher }
         )
     </insert>
+
+    <update id="uadateBook" parameterType="com/infinityiterators/receipt/model/dto/StockDTO">
+        UPDATE STOCK
+        SET BOOKID = #{bookID}
+        , BOOKAMOUNT = #{inAmount}
+    </update>
 </mapper>

@@ -2,9 +2,11 @@ package com.infinityiterators.receipt.Controller;
 
 import com.infinityiterators.receipt.model.dto.BookDTO;
 import com.infinityiterators.receipt.model.dto.InRecordDTO;
+import com.infinityiterators.receipt.model.dto.StockDTO;
 import com.infinityiterators.receipt.model.service.ReceiptService;
 
 import javax.xml.namespace.QName;
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Map;
 
@@ -35,22 +37,24 @@ public class ReceiptController {
     public void selectOutOfStock() {
     }
 
-    public void printResultList(List<InRecordDTO> bookList){
+    public void printResultList(List<BookDTO> bookList){
 
-        for(InRecordDTO book : bookList){
+        for(BookDTO book : bookList){
             System.out.println(book);
         }
     }
 
 
-    public void addNewBook(Map<String ,String> parameter) {
+    public void addNewBook(BookDTO parameter) {     // 신규도서 입력
 
-        String bookID = parameter.get("bookID");
-        int amount = Integer.parseInt(parameter.get("amount"));
+        String title = parameter.getTitle();
+        String author = parameter.getAuthor();
+        String publisher = parameter.getPublisher();
 
-        InRecordDTO receipt = new InRecordDTO();
-        receipt.setBookID(bookID);
-        receipt.setInAmount(amount);
+        BookDTO receipt = new BookDTO();
+        receipt.setTitle(title);
+        receipt.setAuthor(author);
+        receipt.setPublisher(publisher);
 
         if(receiptService.addNewBook(receipt)){
             printResult.printSuccessMessage("insert");
@@ -59,6 +63,20 @@ public class ReceiptController {
         }
     }
 
-    public void updateBook(Map<String ,String> parameter) {
+    public void updateBook(StockDTO parameter){
+
+        String bookId = parameter.getBookID();
+        int inAmount = parameter.getAmount();
+
+        StockDTO stock = new StockDTO();
+        stock.setBookID(bookId);
+        stock.setAmount(inAmount);
+
+        if(receiptService.updateBook(stock)){
+            printResult.printSuccessMessage("update");
+        } else{
+            printResult.printErrorMessage("update");
+        }
+
     }
 }
