@@ -34,7 +34,14 @@ public class OrderDAO {
             return orderMapper.selectAllOrders();
         }
     }
-
+    /*시작 라인 (취소용 조회)  */
+    public List<OrderDTO> selectAllOrder() {
+        try (SqlSession sqlSession = getSqlSession()) {
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            return orderMapper.selectAllOrder();
+        }
+    }
+    /*끝 라인*/
     public int updateOrder(OrderDTO order) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
