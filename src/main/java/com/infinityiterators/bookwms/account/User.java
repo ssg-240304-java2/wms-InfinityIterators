@@ -2,7 +2,7 @@ package com.infinityiterators.bookwms.account;
 
 import lombok.*;
 
-import java.time.*;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -11,7 +11,7 @@ import java.time.*;
 public class User {
     private int code;
     private String name;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private String email;
     private String phone;
     private String address;
