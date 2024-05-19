@@ -8,6 +8,7 @@ import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.model.Cart;
 import com.infinityiterators.bookwms.order.model.CartItem;
 import com.infinityiterators.receipt.Controller.ReceiptController;
+import com.infinityiterators.bookwms.utils.interaction.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class OrderMainMenu {
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
                 break;
             default:
-                System.out.println("잘못된 메뉴를 선택하셨습니다.");
+                Console.print("잘못된 메뉴를 선택하셨습니다.", DisplayType.ERROR, true);
                 break;
         }
     }
@@ -66,7 +67,7 @@ public class OrderMainMenu {
                     break;
 
                 default:
-                    System.out.println("잘못된 옵션을 선택하셨습니다.");
+                    Console.print("잘못된 메뉴를 선택하셨습니다.", DisplayType.ERROR, true);
                     continue;
             }
 
@@ -96,10 +97,10 @@ public class OrderMainMenu {
         boolean isOrderCreated = orderController.createOrder(order, orderItems);
 
         if (isOrderCreated) {
-            System.out.println("주문이 성공적으로 완료되었습니다.");
+            Console.print("주문이 성공적으로 생성되었습니다.", DisplayType.SYSTEM, true);
             printOrderDetails(order, orderItems);
         } else {
-            System.out.println("주문에 실패하였습니다.");
+            Console.print("주문 생성에 실패하였습니다.", DisplayType.ERROR, true);
         }
     }
 
@@ -109,11 +110,12 @@ public class OrderMainMenu {
         order = orderDAO.selectOrderById(order.getOrderId());
         orderItems = orderDAO.getOrderItemsByOrderId(order.getOrderId());
 
-        System.out.println("주문서 정보:");
-        System.out.println("주문 번호: " + order.getOrderId());
-        System.out.println("사용자 코드: " + order.getUser_code());
-        System.out.println("주문 날짜: " + order.getOrderDate());
-        System.out.println("주문 상태: " + order.getStatus());
+        Console.clear();
+        Console.print("주문서 정보:", DisplayType.MENU_HEADER, true);
+        Console.print("주문 ID: " + order.getOrderId(), DisplayType.SYSTEM, true);
+        Console.print("사용자 코드: " + order.getUser_code(), DisplayType.SYSTEM, true);
+        Console.print("주문 날짜: " + order.getOrderDate(), DisplayType.SYSTEM, true);
+        Console.print("주문 상태: " + order.getStatus(), DisplayType.SYSTEM, true);
         for (OrderItemDTO orderItem : orderItems) {
             System.out.println("책 ID: " + orderItem.getBookId() + ", 수량: " + orderItem.getQuantity());
         }
