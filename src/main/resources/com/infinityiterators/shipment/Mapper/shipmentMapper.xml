@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com/infinityiterators/shipment/mapper/ShipmentMapper.java">
+    <select id="selectAllShipmentDate" resultType="com/infinityiterators/shipment/model/dto/ShipmentDTO.java">
+        SELECT BOOK_ID,
+        TITLE,
+        AUTHOR,
+        PUBLISHER,
+        ISBN
+        <!--        NATIONCODE,-->
+        <!--        GENRECODE-->
+        FROM tbl_book
+        ORDER BY TITLE;
+    </select>
+</mapper>
