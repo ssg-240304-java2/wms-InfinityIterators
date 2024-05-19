@@ -17,6 +17,4 @@ public interface OrderMapper {
     int deleteOrder(int orderId);
 
     int insertOrderItem(OrderItemDTO orderItem);
-
-    List<OrderDTO> selectAllOrder();
 }
