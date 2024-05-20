@@ -18,7 +18,7 @@ public class Input {
 
         String input;
         try {
-            input = scanner.nextLine();
+             input = scanner.nextLine();
         } catch (Exception e) {
             return null;
         }
