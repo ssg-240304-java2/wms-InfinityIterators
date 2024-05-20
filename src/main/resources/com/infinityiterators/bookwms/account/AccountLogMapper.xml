@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.infinityiterators.bookwms.account.AccountLogMapper">
+
+<!--    &#45;&#45; 계정 작업 이력 테이블(account_task_log) 생성-->
+<!--    CREATE TABLE `account_task_log` (-->
+<!--    `log_code` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '계정작업 이력 코드',-->
+<!--    `executed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '계정작업 수행일시',-->
+<!--    `account_id` VARCHAR(50) NOT NULL COMMENT '대상 계정 ID',-->
+<!--    `task_code` INT NOT NULL COMMENT '작업유형 식별자',-->
+<!--    CONSTRAINT `fk_account_log`-->
+<!--    FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)-->
+<!--    ON DELETE CASCADE ON UPDATE CASCADE,-->
+<!--    CONSTRAINT `fk_task_log`-->
+<!--    FOREIGN KEY (`task_code`) REFERENCES `account_task_type` (`type_code`)-->
+<!--    ON DELETE CASCADE ON UPDATE CASCADE-->
+<!--    ) COMMENT = '계정 작업 이력';-->
+
+
+    <insert id="insertCreateAccountTaskLog" parameterType="com.infinityiterators.bookwms.account.User">
+        INSERT INTO account_task_log (executed_at, account_id, task_code)
+        VALUES (CURRENT_TIMESTAMP, #{account.id}, 1)
+    </insert>
+
+<!--    insertLoginTaskLog-->
+    <insert id="insertLoginTaskLog" parameterType="com.infinityiterators.bookwms.account.User">
+        INSERT INTO account_task_log (executed_at, account_id, task_code)
+        VALUES (CURRENT_TIMESTAMP, #{account.id}, 5)
+    </insert>
+</mapper>

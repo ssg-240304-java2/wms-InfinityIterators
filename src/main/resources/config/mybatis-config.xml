@@ -19,7 +19,6 @@
             </dataSource>
         </environment>
     </environments>
-    </mappers>
 
     <mappers>
         <mapper resource="com/infinityiterators/bookwms/order/mapper/OrderMapper.xml"/>

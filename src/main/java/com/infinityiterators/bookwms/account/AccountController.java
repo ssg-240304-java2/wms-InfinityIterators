@@ -24,8 +24,8 @@ public class AccountController {
             user.getAccount().setPwHash(pwHash);
             user.getAccount().setPwSalt(salt);
 
-            // todo. DB에 회원 정보 저장
             new AccountService().registerUser(user);
+            new AccountTaskLoggerService().insertCreateAccountTaskLog(user);
         } catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -33,11 +33,14 @@ public class AccountController {
 
     public User login(String id, String pw) throws Exception {
         try {
-            User user = new User(); // todo. DB에서 id에 해당하는 회원 정보 조회
+            User user = new AccountService().selectUserById(id);
             if(user == null) throw new Exception("No such user");
 
             boolean b = EncryptionEngine.verifyPassword(pw, user.getAccount().getPwHash(), user.getAccount().getPwSalt());
-            if(b) return user;
+            if(b) {
+                new AccountTaskLoggerService().insertLoginTaskLog(user);
+                return user;
+            }
             else throw new Exception("Password is incorrect");
         } catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
