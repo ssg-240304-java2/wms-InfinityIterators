@@ -40,4 +40,38 @@ public class PrintResult {
         }
         System.out.println(successMessage);
     }
+
+
+
+//    public void printErrorMessage(String errorCode) {
+//        String errorMessage = "";
+//        switch (errorCode) {
+//            case "update" : errorMessage = "출고를 실패하였습니다."; break;
+//
+//        }
+//
+//        System.out.println(errorMessage);
+//    }
+//
+//    public void printSuccessMessage(String successCode) {
+//        String successMessage = "";
+//        switch (successCode) {
+//            case "update" : successMessage = "출고에 성공하였습니다."; break;
+//
+//        }
+//    }
+//
+//    public void printSoldOutMessage(String successCode) {
+//        String successMessage = "";
+//        switch (successCode) {
+//            case "update" : successMessage = "품절처리되었습니다."; break;
+//        }
+//    }
+//
+//    public void printNotSoldOutMessage(String errorCode) {
+//        String errorMessage = "";
+//        switch (errorCode) {
+//            case "update" : errorMessage = "품절처리에 실패했습니다."; break;
+//        }
+//    }
 }
