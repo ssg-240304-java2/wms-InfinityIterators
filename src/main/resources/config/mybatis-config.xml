@@ -22,8 +22,6 @@
 
     <mappers>
         <mapper resource="com/infinityiterators/bookwms/order/mapper/OrderMapper.xml"/>
-        <mapper resource="com/infinityiterators/receipt/mapper/ReceiptMapper.xml"/>
-        <mapper resource="com/infinityiterators/shipment/mapper/ShipmentMapper.java"/>
         <package name="com.infinityiterators.bookwms.account"/> <!-- 패키지명을 설정하면 해당 패키지 내의 모든 매퍼를 읽어들임 -->
     </mappers>
 </configuration>
