@@ -99,6 +99,7 @@ public class OrderMainMenu {
         for (CartItemDTO cartItem : cart.getItems()) {
             OrderItemDTO orderItem = new OrderItemDTO(0, 0, cartItem.getBookId(), cartItem.getQuantity());
             orderItems.add(orderItem);
+            System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
         }
 
         OrderDTO order = new OrderDTO(0, cart.getUserCode(), new Date(), "대기");
@@ -133,11 +134,11 @@ public class OrderMainMenu {
         Console.clear();
         Console.print("주문서 정보:", DisplayType.MENU_HEADER, true);
         Console.print("주문 ID: " + order.getOrderId(), DisplayType.SYSTEM, true);
-        Console.print("사용자 코드: " + order.getUser_code(), DisplayType.SYSTEM, true);
+        Console.print("사용자 코드: " + order.getUserCode(), DisplayType.SYSTEM, true);
         Console.print("주문 날짜: " + order.getOrderDate(), DisplayType.SYSTEM, true);
         Console.print("주문 상태: " + order.getStatus(), DisplayType.SYSTEM, true);
         for (OrderItemDTO orderItem : orderItems) {
-            System.out.println("책 ID: " + orderItem.getBookId() + ", 수량: " + orderItem.getQuantity());
+            System.out.println("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity());
         }
     }
 }

@@ -4,9 +4,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.infinityiterators.bookwms.order.mapper.OrderMapper">
-    <insert id="insertOrder" parameterType="com.infinityiterators.bookwms.order.dto.OrderDTO">
+    <insert id="insertOrder" parameterType="com.infinityiterators.bookwms.order.dto.OrderDTO" useGeneratedKeys="true" keyProperty="orderId">
         INSERT INTO `Order` (user_code, order_date, status)
-        VALUES (#{userId}, #{orderDate}, #{status})
+        VALUES (#{userCode}, #{orderDate}, #{status})
+    </insert>
+
+
+    <insert id="insertOrderItem" parameterType="com.infinityiterators.bookwms.order.dto.OrderItemDTO">
+        INSERT INTO `OrderItem` (order_id, BookID, quantity)
+        VALUES (#{orderId}, #{BookID}, #{quantity})
     </insert>
 
     <select id="selectOrderById" resultType="com.infinityiterators.bookwms.order.dto.OrderDTO">
