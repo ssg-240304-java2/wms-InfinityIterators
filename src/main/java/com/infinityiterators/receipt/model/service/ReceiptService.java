@@ -1,8 +1,8 @@
-package com.infinityiterators.bookwms.receipt.model.service;
+package com.infinityiterators.receipt.model.service;
 
-import com.infinityiterators.bookwms.receipt.mapper.ReceiptMapper;
-import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
-import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
+import com.infinityiterators.receipt.mapper.ReceiptMapper;
+import com.infinityiterators.receipt.model.dto.BookDTO;
+import com.infinityiterators.receipt.model.dto.StockDTO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
