@@ -20,5 +20,7 @@ public interface OrderMapper {
 
     /*시작 라인 (취소용 조회)*/
     List<OrderDTO> selectAllOrder();
+
+    List<OrderItemDTO> selectOrderItemsByOrderId(int orderId);
     /*끝 라인 */
 }

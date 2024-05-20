@@ -68,4 +68,11 @@ public class OrderDAO {
             return result;
         }
     }
+
+    public List<OrderItemDTO> getOrderItemsByOrderId(int orderId) {
+        try (SqlSession sqlSession = getSqlSession()) {
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            return orderMapper.selectOrderItemsByOrderId(orderId);
+        }
+    }
 }

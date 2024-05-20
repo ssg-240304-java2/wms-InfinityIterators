@@ -45,9 +45,8 @@ public class OrderMainMenu {
                 break;
             case 2:
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
-                orderController.selectAllOrder(); 
+                orderController.selectAllOrder();
                 break;
-
             default:
                 printResult.printErrorMessage("unselectError");
                 break;
@@ -66,14 +65,14 @@ public class OrderMainMenu {
             switch (searchOption) {
                 case 1:
                     // 전체 도서 목록을 출력하는 기능. 입출고의 도서 담당 파트의 전체 도서 출력 기능을 활용해야 함.
-                    receiptController.selectAllStock();
+                    receiptController.selectAllBook();
                     break;
 
                 case 2:
                     String bookCode = requestString("도서 코드를 입력해주세요");
                     // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
-                    orderController.searchBookByCode(bookCode);
-                    break;
+//                    orderController.searchBookByCode(bookCode);
+//                    break;
 
                 default:
                     Console.print("잘못된 메뉴를 선택하셨습니다.", DisplayType.ERROR, true);
