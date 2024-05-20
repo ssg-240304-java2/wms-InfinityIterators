@@ -28,31 +28,52 @@ public class OrderController {
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
 
+//            // 주문 생성
+//            int result = orderMapper.insertOrder(order);
+//            if (result > 0) {
+//                int orderId = order.getOrderId();
+//
+//                // 주문 항목 생성
+//                for (OrderItemDTO item : orderItems) {
+//                    item.setOrderId(orderId); // 각 주문 항목에 orderId 설정
+//                    orderMapper.insertOrderItem(item);
+//                }
+//                sqlSession.commit();
+//                System.out.println("주문이 성공적으로 생성되었습니다.");
+//                return true;
+//            } else {
+//                sqlSession.rollback();
+//                System.out.println("주문 생성에 실패하였습니다.");
+//                return false;
+//            }
             // 주문 생성
             int result = orderMapper.insertOrder(order);
             if (result > 0) {
                 int orderId = order.getOrderId();
+                System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
 
                 // 주문 항목 생성
                 for (OrderItemDTO item : orderItems) {
-                    item.setOrderId(orderId);
+                    item.setOrderId(orderId); // 각 주문 항목에 orderId 설정
                     orderMapper.insertOrderItem(item);
                 }
                 sqlSession.commit();
                 System.out.println("주문이 성공적으로 생성되었습니다.");
+                return true;
             } else {
                 sqlSession.rollback();
                 System.out.println("주문 생성에 실패하였습니다.");
+                return false;
             }
         } catch (Exception e) {
             sqlSession.rollback();
             e.printStackTrace();
+            return false;
         } finally {
             if (sqlSession != null) {
                 sqlSession.close();
             }
         }
-        return false;
     }
 
     public void getOrderById(int orderId) {
