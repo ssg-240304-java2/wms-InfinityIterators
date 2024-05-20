@@ -3,16 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.infinityiterators.bookwms.receipt.mapper.ReceiptMapper">
-    <select id="selectAllStock" resultType="com.infinityiterators.bookwms.receipt.model.dto.BookDTO">
-        SELECT BookID,
-        Title,
-        Author,
-        Publisher,
+<mapper namespace="com/infinityiterators/receipt/mapper/ReceiptMapper.java">
+    <select id="selectAllStock" resultType="com/infinityiterators/receipt/model/dto/BookDTO.java">
+        SELECT BOOK_ID,
+        TITLE,
+        AUTHOR,
+        PUBLISHER,
         ISBN
 <!--        NATIONCODE,-->
 <!--        GENRECODE-->
-        FROM BOOK
+        FROM tbl_book
         ORDER BY TITLE;
     </select>
 
@@ -32,7 +32,7 @@
 
     <update id="uadateBook" parameterType="com/infinityiterators/receipt/model/dto/StockDTO">
         UPDATE STOCK
-        SET BookID = #{bookID}
-        , BookAmount = #{inAmount}
+        SET BOOKID = #{bookID}
+        , BOOKAMOUNT = #{inAmount}
     </update>
 </mapper>

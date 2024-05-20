@@ -1,4 +1,4 @@
-package com.infinityiterators.bookwms.receipt.model.dto;
+package com.infinityiterators.receipt.model.dto;
 
 import lombok.*;
 
@@ -9,6 +9,6 @@ import lombok.*;
 @ToString
 public class StockDTO {
 
-    private String BookID;
-    private int Amount;
+    private String bookID;
+    private int amount;
 }

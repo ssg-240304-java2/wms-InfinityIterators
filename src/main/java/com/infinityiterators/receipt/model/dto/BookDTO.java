@@ -1,4 +1,4 @@
-package com.infinityiterators.bookwms.receipt.model.dto;
+package com.infinityiterators.receipt.model.dto;
 
 import lombok.*;
 
@@ -19,6 +19,6 @@ public class BookDTO {
     private String NationCode;
     private String GenreCode;
 
-    private int InAmount;       // 입고량
-    private Date ReceiptDate;       // 입고일
+    private int inAmount;       // 입고량
+    private Date receiptDate;       // 입고일
 }

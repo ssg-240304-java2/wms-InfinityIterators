@@ -1,7 +1,9 @@
-package com.infinityiterators.bookwms.receipt.mapper;
+package com.infinityiterators.receipt.mapper;
 
-import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
-import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
+import com.infinityiterators.receipt.model.dto.BookDTO;
+import com.infinityiterators.receipt.model.dto.InRecordDTO;
+import com.infinityiterators.receipt.model.dto.StockDTO;
+import lombok.Setter;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 
