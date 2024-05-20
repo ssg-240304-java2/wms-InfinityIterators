@@ -40,7 +40,7 @@ public class OrderMainMenu {
 
         int no = requestInt("메뉴를 선택해주세요");
         switch (no) {
-            case 1:
+            case 1: // 주문 하기 기능
                 orderBooks();
                 break;
             case 2:
@@ -59,12 +59,12 @@ public class OrderMainMenu {
 
         while (ordering) {
             displayMenuHeader("도서 주문 메뉴");
-            displaySelectionMenu("1. 전체 도서 목록 조회", "2. 도서 코드로 검색");
+            displaySelectionMenu("전체 도서 목록 조회", "도서 코드로 검색");
 
             int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
                 case 1:
-                    // 전체 도서 목록을 출력하는 기능 selectAllStock로 전체 책 정보 조회
+                    // 전체 도서 목록을 출력하는 기능. 입출고의 도서 담당 파트의 전체 도서 출력 기능을 활용해야 함.
                     receiptController.selectAllStock();
                     break;
 
@@ -99,6 +99,7 @@ public class OrderMainMenu {
         for (CartItemDTO cartItem : cart.getItems()) {
             OrderItemDTO orderItem = new OrderItemDTO(0, 0, cartItem.getBookId(), cartItem.getQuantity());
             orderItems.add(orderItem);
+            System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
         }
 
         OrderDTO order = new OrderDTO(0, cart.getUserCode(), new Date(), "대기");
@@ -133,11 +134,11 @@ public class OrderMainMenu {
         Console.clear();
         Console.print("주문서 정보:", DisplayType.MENU_HEADER, true);
         Console.print("주문 ID: " + order.getOrderId(), DisplayType.SYSTEM, true);
-        Console.print("사용자 코드: " + order.getUser_code(), DisplayType.SYSTEM, true);
+        Console.print("사용자 코드: " + order.getUserCode(), DisplayType.SYSTEM, true);
         Console.print("주문 날짜: " + order.getOrderDate(), DisplayType.SYSTEM, true);
         Console.print("주문 상태: " + order.getStatus(), DisplayType.SYSTEM, true);
         for (OrderItemDTO orderItem : orderItems) {
-            System.out.println("책 ID: " + orderItem.getBookId() + ", 수량: " + orderItem.getQuantity());
+            System.out.println("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity());
         }
     }
 }

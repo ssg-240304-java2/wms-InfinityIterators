@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 public class OrderDTO {
     private int orderId;
-    private int user_code;
+    private int userCode;
     private Date orderDate;
     private String status;
 }

@@ -10,6 +10,6 @@ import lombok.*;
 public class OrderItemDTO {
     private int orderItemId;
     private int orderId;
-    private int bookId;
+    private int BookID; // BookID -> bookId
     private int quantity;
 }
