@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.infinityiterators.bookwms.receipt.mapper.ReceiptMapper">
+    <select id="selectAllStock" resultType="com.infinityiterators.bookwms.receipt.model.dto.BookDTO">
+        SELECT BookID,
+        Title,
+        Author,
+        Publisher,
+        ISBN
+<!--        NATIONCODE,-->
+<!--        GENRECODE-->
+        FROM BOOK
+        ORDER BY TITLE;
+    </select>
+
+    <insert id="addNewBook">
+        INSERT INTO Book (
+            Title
+        , Author
+        , Publisher
+        )
+        VALUES
+        (
+            #{ title }
+        , #{ author }
+        , #{ publisher }
+        )
+    </insert>
+
+    <update id="uadateBook" parameterType="com/infinityiterators/receipt/model/dto/StockDTO">
+        UPDATE STOCK
+        SET BookID = #{bookID}
+        , BookAmount = #{inAmount}
+    </update>
+</mapper>

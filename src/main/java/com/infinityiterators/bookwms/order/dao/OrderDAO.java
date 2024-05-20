@@ -12,7 +12,7 @@ import static com.infinityiterators.bookwms.utils.database.MyBatisTemplate.getSq
 
 public class OrderDAO {
 
-    public int insertOrder(OrderDTO order) { // 주문 생성
+    public int insertOrder(OrderDTO order) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             int result = orderMapper.insertOrder(order);
@@ -21,28 +21,28 @@ public class OrderDAO {
         }
     }
 
-    public OrderDTO selectOrderById(int orderId) { // 주문 조회
+    public OrderDTO selectOrderById(int orderId) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             return orderMapper.selectOrderById(orderId);
         }
     }
 
-    public List<OrderDTO> selectAllOrders() { // 전체 주문 조회
+    public List<OrderDTO> selectAllOrders() {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             return orderMapper.selectAllOrders();
         }
     }
-
-    public List<OrderDTO> selectAllOrder() { // 취소용 조회
+    /*시작 라인 (취소용 조회)  */
+    public List<OrderDTO> selectAllOrder() {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             return orderMapper.selectAllOrder();
         }
     }
-
-    public int updateOrder(OrderDTO order) { // 주문 수정
+    /*끝 라인*/
+    public int updateOrder(OrderDTO order) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             int result = orderMapper.updateOrder(order);
@@ -51,7 +51,7 @@ public class OrderDAO {
         }
     }
 
-    public int deleteOrder(int orderId) { // 주문 삭제
+    public int deleteOrder(int orderId) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             int result = orderMapper.deleteOrder(orderId);
@@ -60,19 +60,12 @@ public class OrderDAO {
         }
     }
 
-    public int insertOrderItem(OrderItemDTO orderItem) { // 주문 항목 생성
+    public int insertOrderItem(OrderItemDTO orderItem) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             int result = orderMapper.insertOrderItem(orderItem);
             sqlSession.commit();
             return result;
-        }
-    }
-
-    public List<OrderItemDTO> getOrderItemsByOrderId(int orderId) { // 주문 항목 조회
-        try (SqlSession sqlSession = getSqlSession()) {
-            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-            return orderMapper.selectOrderItemsByOrderId(orderId);
         }
     }
 }
