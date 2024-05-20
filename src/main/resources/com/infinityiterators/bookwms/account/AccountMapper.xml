@@ -5,49 +5,49 @@
 <mapper namespace="com.infinityiterators.bookwms.account.AccountMapper">
 
 
-<!--    &#45;&#45; 계정 인증 정보 테이블(account) 생성-->
-<!--    CREATE TABLE `account`-->
-<!--    (-->
-<!--    `account_id`         VARCHAR(50)                         NOT NULL PRIMARY KEY COMMENT '계정 ID',-->
-<!--    `pw_hash`            VARCHAR(255)                        NOT NULL COMMENT '해쉬된 비밀번호',-->
-<!--    `pw_salt`            VARCHAR(255)                        NOT NULL COMMENT '비밀번호 솔트 값',-->
-<!--    `last_pw_changed_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '마지막 비밀번호 변경 일시'-->
-<!--    ) COMMENT = '계정 인증 정보';-->
+    <!--    &#45;&#45; 계정 인증 정보 테이블(account) 생성-->
+    <!--    CREATE TABLE `account`-->
+    <!--    (-->
+    <!--    `account_id`         VARCHAR(50)                         NOT NULL PRIMARY KEY COMMENT '계정 ID',-->
+    <!--    `pw_hash`            VARCHAR(255)                        NOT NULL COMMENT '해쉬된 비밀번호',-->
+    <!--    `pw_salt`            VARCHAR(255)                        NOT NULL COMMENT '비밀번호 솔트 값',-->
+    <!--    `last_pw_changed_on` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '마지막 비밀번호 변경 일시'-->
+    <!--    ) COMMENT = '계정 인증 정보';-->
 
-<!--    &#45;&#45; 계정 작업 유형 테이블(account_task_type) 생성-->
-<!--    CREATE TABLE `account_task_type` (-->
-<!--    `type_code` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '작업유형 식별자',-->
-<!--    `desc` VARCHAR(255) NOT NULL COMMENT '작업유형 설명'-->
-<!--    ) COMMENT = '계정 작업 유형';-->
+    <!--    &#45;&#45; 계정 작업 유형 테이블(account_task_type) 생성-->
+    <!--    CREATE TABLE `account_task_type` (-->
+    <!--    `type_code` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '작업유형 식별자',-->
+    <!--    `desc` VARCHAR(255) NOT NULL COMMENT '작업유형 설명'-->
+    <!--    ) COMMENT = '계정 작업 유형';-->
 
-<!--    &#45;&#45; 회원 정보 테이블(customer) 생성-->
-<!--    CREATE TABLE `customer`-->
-<!--    (-->
-<!--    `user_code`     INT          NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '사용자 식별자',-->
-<!--    `name`          VARCHAR(100) NOT NULL COMMENT '실명',-->
-<!--    `date_of_birth` DATE         NOT NULL COMMENT '생년월일',-->
-<!--    `email`         VARCHAR(255) NOT NULL COMMENT '이메일',-->
-<!--    `phone`         VARCHAR(15)  NOT NULL COMMENT '휴대전화번호',-->
-<!--    `address`       VARCHAR(255) NOT NULL COMMENT '주소',-->
-<!--    `account_id`    VARCHAR(50)  NOT NULL COMMENT '계정 ID',-->
-<!--    CONSTRAINT `fk_account`-->
-<!--    FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)-->
-<!--    ON DELETE CASCADE ON UPDATE CASCADE-->
-<!--    ) COMMENT = '회원 정보';-->
+    <!--    &#45;&#45; 회원 정보 테이블(customer) 생성-->
+    <!--    CREATE TABLE `customer`-->
+    <!--    (-->
+    <!--    `user_code`     INT          NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '사용자 식별자',-->
+    <!--    `name`          VARCHAR(100) NOT NULL COMMENT '실명',-->
+    <!--    `date_of_birth` DATE         NOT NULL COMMENT '생년월일',-->
+    <!--    `email`         VARCHAR(255) NOT NULL COMMENT '이메일',-->
+    <!--    `phone`         VARCHAR(15)  NOT NULL COMMENT '휴대전화번호',-->
+    <!--    `address`       VARCHAR(255) NOT NULL COMMENT '주소',-->
+    <!--    `account_id`    VARCHAR(50)  NOT NULL COMMENT '계정 ID',-->
+    <!--    CONSTRAINT `fk_account`-->
+    <!--    FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)-->
+    <!--    ON DELETE CASCADE ON UPDATE CASCADE-->
+    <!--    ) COMMENT = '회원 정보';-->
 
-<!--    &#45;&#45; 계정 작업 이력 테이블(account_task_log) 생성-->
-<!--    CREATE TABLE `account_task_log` (-->
-<!--    `log_code` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '계정작업 이력 코드',-->
-<!--    `executed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '계정작업 수행일시',-->
-<!--    `account_id` VARCHAR(50) NOT NULL COMMENT '대상 계정 ID',-->
-<!--    `task_code` INT NOT NULL COMMENT '작업유형 식별자',-->
-<!--    CONSTRAINT `fk_account_log`-->
-<!--    FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)-->
-<!--    ON DELETE CASCADE ON UPDATE CASCADE,-->
-<!--    CONSTRAINT `fk_task_log`-->
-<!--    FOREIGN KEY (`task_code`) REFERENCES `account_task_type` (`type_code`)-->
-<!--    ON DELETE CASCADE ON UPDATE CASCADE-->
-<!--    ) COMMENT = '계정 작업 이력';-->
+    <!--    &#45;&#45; 계정 작업 이력 테이블(account_task_log) 생성-->
+    <!--    CREATE TABLE `account_task_log` (-->
+    <!--    `log_code` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '계정작업 이력 코드',-->
+    <!--    `executed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '계정작업 수행일시',-->
+    <!--    `account_id` VARCHAR(50) NOT NULL COMMENT '대상 계정 ID',-->
+    <!--    `task_code` INT NOT NULL COMMENT '작업유형 식별자',-->
+    <!--    CONSTRAINT `fk_account_log`-->
+    <!--    FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)-->
+    <!--    ON DELETE CASCADE ON UPDATE CASCADE,-->
+    <!--    CONSTRAINT `fk_task_log`-->
+    <!--    FOREIGN KEY (`task_code`) REFERENCES `account_task_type` (`type_code`)-->
+    <!--    ON DELETE CASCADE ON UPDATE CASCADE-->
+    <!--    ) COMMENT = '계정 작업 이력';-->
 
 
 
@@ -70,24 +70,24 @@
     </resultMap>
     <select id="selectUserById" resultMap="userAndAccountResultMap">
         select
-            c.user_code,
-            c.name,
-            c.date_of_birth,
-            c.email,
-            c.phone,
-            c.address,
-            a.account_id,
-            a.pw_hash,
-            a.pw_salt,
-            a.last_pw_changed_on
+        c.user_code,
+        c.name,
+        c.date_of_birth,
+        c.email,
+        c.phone,
+        c.address,
+        a.account_id,
+        a.pw_hash,
+        a.pw_salt,
+        a.last_pw_changed_on
         from customer c
         join account a on c.account_id = a.account_id
         where a.account_id = #{id}
     </select>
 
     <insert id="insertAccount" parameterType="com.infinityiterators.bookwms.account.Account">
-        INSERT INTO account (account_id, pw_hash, pw_salt, last_pw_changed_on)
-        VALUES (#{id}, #{pwHash}, #{pwSalt}, #{lastPwChangedOn})
+        INSERT INTO account (account_id, pw_hash, pw_salt)
+        VALUES (#{id}, #{pwHash}, #{pwSalt})
     </insert>
 
     <insert id="insertUser" parameterType="com.infinityiterators.bookwms.account.User">
