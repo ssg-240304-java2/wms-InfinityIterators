@@ -1,4 +1,4 @@
-package com.infinityiterators.bookwms.order.dto;
+package com.infinityiterators.bookwms.order.model.dto;
 
 import lombok.*;
 
