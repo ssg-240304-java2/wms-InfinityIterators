@@ -1,12 +1,9 @@
-package com.infinityiterators.receipt.view;
+package com.infinityiterators.bookwms.receipt.view;
 
-import com.infinityiterators.receipt.Controller.ReceiptController;
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.InRecordDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ReceiptView {
