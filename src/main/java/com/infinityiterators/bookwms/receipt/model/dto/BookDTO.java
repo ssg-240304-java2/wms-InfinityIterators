@@ -1,4 +1,4 @@
-package com.infinityiterators.receipt.model.dto;
+package com.infinityiterators.bookwms.receipt.model.dto;
 
 import lombok.*;
 
@@ -11,13 +11,13 @@ import java.util.Date;
 @ToString
 public class BookDTO {
 
-    private String BookID;
-    private String Title;
-    private String Author;
-    private String Publisher;
+    private String bookID;
+    private String title;
+    private String author;
+    private String publisher;
     private String ISBN;
-    private String NationCode;
-    private String GenreCode;
+    private String nationCode;
+    private String genreCode;
 
     private int inAmount;       // 입고량
     private Date receiptDate;       // 입고일

@@ -1,8 +1,7 @@
-package com.infinityiterators.receipt.Controller;
+package com.infinityiterators.bookwms.receipt.Controller;
 
-import com.infinityiterators.receipt.model.dto.BookDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 
-import java.awt.print.Book;
 import java.util.List;
 
 public class PrintResult {

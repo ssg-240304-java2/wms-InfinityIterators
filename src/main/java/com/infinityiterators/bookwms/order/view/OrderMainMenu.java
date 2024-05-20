@@ -7,7 +7,7 @@ import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.model.Cart;
 import com.infinityiterators.bookwms.order.model.CartItem;
-import com.infinityiterators.receipt.Controller.ReceiptController;
+import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
 import java.util.ArrayList;

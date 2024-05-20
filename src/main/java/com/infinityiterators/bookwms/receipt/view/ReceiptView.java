@@ -1,12 +1,9 @@
-package com.infinityiterators.receipt.view;
+package com.infinityiterators.bookwms.receipt.view;
 
-import com.infinityiterators.receipt.Controller.ReceiptController;
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.InRecordDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ReceiptView {
@@ -58,7 +55,7 @@ public class ReceiptView {
 
         do {         // Main Menu
             System.out.println("===== 입고 시스템 =====");
-            System.out.println("1. 신규 도서입고");
+            System.out.println("1. 신규 도서등록");
             System.out.println("2. 기존 도서입고");
             System.out.println("===============================");
             System.out.print("메뉴를 선택해주세요 : ");
@@ -93,7 +90,7 @@ public class ReceiptView {
 
 
         BookDTO parameter = new BookDTO();
-        parameter.setBookID(title);
+        parameter.setTitle(title);
         parameter.setAuthor(author);
         parameter.setPublisher(publisher);
 
@@ -112,7 +109,7 @@ public class ReceiptView {
 
         StockDTO parameter = new StockDTO();
         parameter.setBookID(bookID);
-        parameter.setAmount(inAmount);
+        parameter.setInAmount(inAmount);
 
         return parameter;
     }

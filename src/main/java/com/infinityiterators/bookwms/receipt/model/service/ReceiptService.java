@@ -1,8 +1,8 @@
-package com.infinityiterators.receipt.model.service;
+package com.infinityiterators.bookwms.receipt.model.service;
 
-import com.infinityiterators.receipt.mapper.ReceiptMapper;
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.mapper.ReceiptMapper;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -29,6 +29,7 @@ public class ReceiptService {
         SqlSession sqlSession = getSqlSession();
 
         receiptMapper = sqlSession.getMapper(ReceiptMapper.class);
+        System.out.println(receipt.toString());
         int result = receiptMapper.addNewBook(receipt);
 
         if(result > 0){
