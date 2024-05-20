@@ -114,15 +114,15 @@ public class OrderController {
         }
     }
 
-    public void selectAllOrder() {
-
-        List<OrderDTO> orderList = orderService.selectAllOrder();
-
-        if(orderList != null && !orderList.isEmpty()) {
-            printResult.printOrderList(orderList);
-        } else {
-            printResult.printErrorMessage("selectListError");
-        }
-
-    }
+//    public void selectAllOrder() {
+//
+//        List<OrderDTO> orderList = orderService.selectAllOrder();
+//
+//        if(orderList != null && !orderList.isEmpty()) {
+//            printResult.printOrderList(orderList);
+//        } else {
+//            printResult.printErrorMessage("selectListError");
+//        }
+//
+//    }
 }
