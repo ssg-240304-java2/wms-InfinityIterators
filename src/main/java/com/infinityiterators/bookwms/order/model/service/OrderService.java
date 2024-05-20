@@ -2,6 +2,7 @@ package com.infinityiterators.bookwms.order.model.service;
 
 import com.infinityiterators.bookwms.order.dao.OrderDAO;
 import com.infinityiterators.bookwms.order.dto.OrderDTO;
+import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.mapper.OrderMapper;
 import org.apache.ibatis.session.SqlSession;
 
@@ -13,6 +14,19 @@ public class OrderService {
 
     private OrderMapper orderMapper;
     private final OrderDAO orderDAO = new OrderDAO();
+
+    public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
+        int result = orderDAO.insertOrder(order);
+        if (result > 0) {
+            int orderId = order.getOrderId();
+            for (OrderItemDTO item : orderItems) {
+                item.setOrderId(orderId);
+                orderDAO.insertOrderItem(item);
+            }
+            return true;
+        }
+        return false;
+    }
 
     public OrderDTO getOrderById(int orderId) {
         return orderDAO.selectOrderById(orderId);
@@ -30,11 +44,15 @@ public class OrderService {
         return orderDAO.deleteOrder(orderId) > 0;
     }
 
+/* 시작 추가 라인*/
     public List<OrderDTO> selectAllOrder() {
         SqlSession sqlSession = getSqlSession();
+
         orderMapper = sqlSession.getMapper(OrderMapper.class);
         List<OrderDTO> orderList = orderMapper.selectAllOrder();
+
         sqlSession.close();
         return orderList;
     }
+/* 끝 추가 라인*/
 }
