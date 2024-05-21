@@ -24,6 +24,7 @@ public class ShipmentView {
             System.out.println("2. 출고하기");      // 출고는 문제가 없어 보이지만 출고내역에 남는지 의문
             System.out.println("3. 품절처리하기");    // 품절할 도서코드입력,품절 메세지 출력까진 문제가 없어 보이지만 테이블에서 삭제가 되는지 의문
             System.out.println("4. 출고내역 조회하기");     // 주문서를 출력하면서 주문서에 있는 내용을 품절시켜야할지 아님 테이블을 삭제시킬지
+            System.out.println("5. 뒤로 가기");
             System.out.print("동작할 번호를 입력하시오 : ");   // 출고시킨 출고내역을 조회하면 됩니다 하지만 출고내용이 테이블에 남을 수 있을지 의문이네요
                                                         // xml 에서 작업을 해야 할 듯 보입니다
 
@@ -43,6 +44,8 @@ public class ShipmentView {
                 case 4:
                     shipmentController.selectShipmentDetails(details());
                     break;
+                case 5:
+                    return;
                 default:
                     System.out.println("잘못된 메뉴 선택");
                     break;
