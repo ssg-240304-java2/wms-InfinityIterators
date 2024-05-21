@@ -129,7 +129,7 @@ public class OrderMainMenu {
             String purchaseDecision = requestString("구매를 하시겠습니까? (y/n)");
             if (purchaseDecision.equalsIgnoreCase("y")) {
                 // 주문 ID를 이용하여 주문 상태를 완료로 변경
-                order.setStatus("완료");
+//                order.setStatus("완료");
                 boolean isOrderCompleted = orderController.completeOrder(order);
                 if (isOrderCompleted) {
                     Console.print("구매가 성공적으로 완료되었습니다.", DisplayType.SYSTEM, true);
