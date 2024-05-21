@@ -1,8 +1,8 @@
-package com.infinityiterators.receipt.model.service;
+package com.infinityiterators.bookwms.receipt.model.service;
 
-import com.infinityiterators.receipt.mapper.ReceiptMapper;
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.mapper.ReceiptMapper;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -29,6 +29,7 @@ public class ReceiptService {
         SqlSession sqlSession = getSqlSession();
 
         receiptMapper = sqlSession.getMapper(ReceiptMapper.class);
+        System.out.println(receipt.toString());
         int result = receiptMapper.addNewBook(receipt);
 
         if(result > 0){
@@ -42,19 +43,30 @@ public class ReceiptService {
     }
 
     public boolean updateBook(StockDTO stock) {
-
+        // 입고 이력 조회
+        boolean sqlStatus = true;
         SqlSession sqlSession = getSqlSession();
 
         receiptMapper = sqlSession.getMapper(ReceiptMapper.class);
         int result = receiptMapper.updateBook(stock);
 
-        if(result > 0){
+        if(result <= 0){
+            sqlStatus = false;
+        }else{
+            result = receiptMapper.insertInRecord(stock);
+
+            if(result <= 0){
+                sqlStatus = false;
+            }
+        }
+
+        if(sqlStatus){
             sqlSession.commit();
-        } else {
+        }else{
             sqlSession.rollback();
         }
 
         sqlSession.close();
-        return result > 0 ? true : false;
+        return sqlStatus;
     }
 }

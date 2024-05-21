@@ -1,14 +1,10 @@
-package com.infinityiterators.receipt.Controller;
+package com.infinityiterators.bookwms.receipt.Controller;
 
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.InRecordDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
-import com.infinityiterators.receipt.model.service.ReceiptService;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.model.service.ReceiptService;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 
-import javax.xml.namespace.QName;
-import java.awt.print.Book;
 import java.util.List;
-import java.util.Map;
 
 public class ReceiptController {
 
@@ -66,11 +62,11 @@ public class ReceiptController {
     public void updateBook(StockDTO parameter){
 
         String bookId = parameter.getBookID();
-        int inAmount = parameter.getAmount();
+        int bookAmount = parameter.getInAmount();
 
         StockDTO stock = new StockDTO();
         stock.setBookID(bookId);
-        stock.setAmount(inAmount);
+        stock.setInAmount(bookAmount);
 
         if(receiptService.updateBook(stock)){
             printResult.printSuccessMessage("update");

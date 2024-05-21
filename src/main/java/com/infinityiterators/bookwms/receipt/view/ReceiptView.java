@@ -1,12 +1,9 @@
-package com.infinityiterators.receipt.view;
+package com.infinityiterators.bookwms.receipt.view;
 
-import com.infinityiterators.receipt.Controller.ReceiptController;
-import com.infinityiterators.receipt.model.dto.BookDTO;
-import com.infinityiterators.receipt.model.dto.InRecordDTO;
-import com.infinityiterators.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
+import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
+import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class ReceiptView {
@@ -41,12 +38,6 @@ public class ReceiptView {
                     break;
             }
 
-            // 추가입고 여부 확인
-            System.out.print("추가 입고하시겠습니까? (Y/N) : ");
-            String answer = sc.nextLine();
-            if (!answer.equalsIgnoreCase("Y")) {
-                break;
-            }
         } while (true);
     }
 
@@ -58,7 +49,7 @@ public class ReceiptView {
 
         do {         // Main Menu
             System.out.println("===== 입고 시스템 =====");
-            System.out.println("1. 신규 도서입고");
+            System.out.println("1. 신규 도서등록");
             System.out.println("2. 기존 도서입고");
             System.out.println("===============================");
             System.out.print("메뉴를 선택해주세요 : ");
@@ -93,7 +84,7 @@ public class ReceiptView {
 
 
         BookDTO parameter = new BookDTO();
-        parameter.setBookID(title);
+        parameter.setTitle(title);
         parameter.setAuthor(author);
         parameter.setPublisher(publisher);
 
@@ -101,7 +92,7 @@ public class ReceiptView {
 
     }
 
-    private static StockDTO inputModifyMenu() {
+    private static StockDTO inputModifyMenu() {     // 기존 도서 수량 변경
 
         Scanner sc = new Scanner(System.in);
         System.out.print("입고할 도서 코드를 입력하세요 : ");
@@ -112,7 +103,7 @@ public class ReceiptView {
 
         StockDTO parameter = new StockDTO();
         parameter.setBookID(bookID);
-        parameter.setAmount(inAmount);
+        parameter.setInAmount(inAmount);
 
         return parameter;
     }
