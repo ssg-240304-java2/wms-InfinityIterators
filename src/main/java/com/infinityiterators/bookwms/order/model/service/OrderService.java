@@ -63,25 +63,25 @@ public class OrderService {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
             if (order != null) {
                 order.setStatus("완료");
-                System.out.println("Updating order: " + order); // 디버깅 로그
+//                System.out.println("Updating order: " + order); // 디버깅 로그
                 int result = orderMapper.updateOrder(order);
                 if (result > 0) {
                     sqlSession.commit();
-                    System.out.println("구매가 성공적으로 완료되었습니다."); // 디버깅 로그
+//                    System.out.println("구매가 성공적으로 완료되었습니다."); // 디버깅 로그
                     return true;
                 } else {
                     sqlSession.rollback();
-                    System.out.println("구매 완료에 실패하였습니다. (updateOrder 실패)"); // 디버깅 로그
+//                    System.out.println("구매 완료에 실패하였습니다. (updateOrder 실패)"); // 디버깅 로그
                     return false;
                 }
             } else {
-                System.out.println("구매 완료에 실패하였습니다. (주문을 찾을 수 없음)"); // 디버깅 로그
+//                System.out.println("구매 완료에 실패하였습니다. (주문을 찾을 수 없음)"); // 디버깅 로그
                 return false;
             }
         } catch (Exception e) {
             sqlSession.rollback();
             e.printStackTrace();
-            System.out.println("구매 완료에 실패하였습니다. (예외 발생)"); // 디버깅 로그
+//            System.out.println("구매 완료에 실패하였습니다. (예외 발생)"); // 디버깅 로그
             return false;
         } finally {
             if (sqlSession != null) {

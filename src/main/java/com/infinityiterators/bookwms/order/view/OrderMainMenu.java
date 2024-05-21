@@ -1,3 +1,8 @@
+/**
+ * 주문 관리 시스템의 메인 메뉴를 제공하는 클래스입니다.
+ * 이 클래스에는 주문 하기, 주문 목록 조회, 프로그램 종료 등의 기능이 포함되어 있습니다.
+ * 사용자는 이 메인 메뉴를 통해 주문 관련 작업을 수행할 수 있습니다.
+ */
 package com.infinityiterators.bookwms.order.view;
 
 import com.infinityiterators.bookwms.order.controller.OrderController;
@@ -87,15 +92,22 @@ public class OrderMainMenu {
                     continue;
             }
 
-            int bookId = requestInt("장바구니에 담을 도서 ID를 입력해주세요");
+            int bookId = requestInt("장바구니에 담을 도서 ID를 입력해주세요"); // 장바구니에 담을 도서 ID를 입력받음
             int quantity = requestInt("수량을 입력해주세요");
 
             CartItemDTO cartItem = new CartItemDTO(0, cart.getCartId(), bookId, quantity);
             cart.addCartItem(cartItem);
 
-            String more = requestString("더 담으시겠습니까? (y/n)");
-            if (more.equalsIgnoreCase("n")) {
-                ordering = false;
+            while (true) {
+                String more = requestString("더 담으시겠습니까? (y/n)").trim().toLowerCase();
+                if (more.equals("n")) {
+                    ordering = false;
+                    break;
+                } else if (more.equals("y")) {
+                    break;
+                } else {
+                    Console.print("잘못된 입력입니다. y 또는 n을 입력해주세요.", DisplayType.ERROR, true);
+                }
             }
         }
 
@@ -108,7 +120,7 @@ public class OrderMainMenu {
         for (CartItemDTO cartItem : cart.getItems()) {
             OrderItemDTO orderItem = new OrderItemDTO(0, 0, cartItem.getBookId(), cartItem.getQuantity());
             orderItems.add(orderItem);
-            System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
+            // System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
         }
 
         OrderDTO order = new OrderDTO(0, cart.getUserCode(), new Date(), "대기");
@@ -117,13 +129,13 @@ public class OrderMainMenu {
         if (isOrderCreated) {
             // 생성된 주문 ID를 가져와서 설정
             int orderId = order.getOrderId();
-            System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
-            System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
+            // System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+            // System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
 
             Console.print("주문이 성공적으로 생성되었습니다.", DisplayType.SYSTEM, true);
 
-            String purchaseDecision = requestString("구매를 하시겠습니까? (Y/N)");
-            if (purchaseDecision.equalsIgnoreCase("Y")) {
+            String purchaseDecision = requestString("구매를 하시겠습니까? (y/n)");
+            if (purchaseDecision.equalsIgnoreCase("n")) {
                 // 주문 ID를 이용하여 주문 상태를 완료로 변경
                 order.setStatus("완료");
                 boolean isOrderCompleted = orderController.completeOrder(order);
@@ -144,17 +156,35 @@ public class OrderMainMenu {
     private static void printReceipt(OrderDTO order, List<OrderItemDTO> orderItems) {
         // DAO에서 주문서 데이터를 조회하는 기능 추가
         OrderDAO orderDAO = new OrderDAO();
-        order = orderDAO.selectOrderById(order.getOrderId());
-        orderItems = orderDAO.getOrderItemsByOrderId(order.getOrderId());
+        OrderDTO fetchedOrder = orderDAO.selectOrderById(order.getOrderId());
+        List<OrderItemDTO> fetchedOrderItems = orderDAO.getOrderItemsByOrderId(order.getOrderId());
+
+        if (fetchedOrder != null) {
+            // System.out.println("Fetched OrderDTO: " + fetchedOrder); // 디버깅 로그 추가
+            // order = fetchedOrder;
+        } else {
+            Console.print("주문을 찾을 수 없습니다.", DisplayType.ERROR, true);
+            return;
+        }
+
+        if (fetchedOrderItems != null) {
+            orderItems.clear();
+            orderItems.addAll(fetchedOrderItems);
+        } else {
+            Console.print("주문 항목을 찾을 수 없습니다.", DisplayType.ERROR, true);
+            return;
+        }
 
         Console.clear();
-        Console.print("주문서 정보:", DisplayType.MENU_HEADER, true);
+        Console.print("=============== 주문서 정보 ================", DisplayType.MENU_HEADER, true);
         Console.print("주문 ID: " + order.getOrderId(), DisplayType.SYSTEM, true);
         Console.print("사용자 코드: " + order.getUserCode(), DisplayType.SYSTEM, true);
         Console.print("주문 날짜: " + order.getOrderDate(), DisplayType.SYSTEM, true);
         Console.print("주문 상태: " + order.getStatus(), DisplayType.SYSTEM, true);
         for (OrderItemDTO orderItem : orderItems) {
-            Console.print("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity(), DisplayType.SYSTEM, true);
+            Console.print("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity(), DisplayType.SYSTEM,
+                    true);
         }
     }
+
 }

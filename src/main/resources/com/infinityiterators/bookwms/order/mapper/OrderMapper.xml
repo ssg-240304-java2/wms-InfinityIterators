@@ -20,13 +20,12 @@
         WHERE order_id = #{orderId}
     </select>
 
-    <!-- 취소용 목록 조회 추가 라인-->
     <select id="selectOrderItemsByOrderId" parameterType="int" resultType="com.infinityiterators.bookwms.order.dto.OrderItemDTO">
         SELECT order_item_id, order_id, BookID, quantity
         FROM OrderItem
         WHERE order_id = #{orderId}
     </select>
-
+    <!-- 취소용 목록 조회 추가 라인-->
     <select id="selectAllOrders" resultType="com.infinityiterators.bookwms.order.dto.OrderDTO">
         SELECT order_id, user_code, order_date, status
         FROM `Order`
