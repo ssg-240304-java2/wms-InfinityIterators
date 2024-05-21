@@ -1,5 +1,6 @@
 package com.infinityiterators.bookwms.receipt.mapper;
 
+import com.infinityiterators.bookwms.receipt.model.dto.InRecordDTO;
 import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
 import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
 import org.apache.ibatis.annotations.Result;
@@ -41,4 +42,10 @@ public interface ReceiptMapper {
     int updateBook(StockDTO stock);
 
     int insertInRecord(StockDTO stock);
+
+    List<InRecordDTO> selectInRecord();
+
+    int insertInStock(BookDTO receipt);
+
+    List<StockDTO> selectInStock();
 }
