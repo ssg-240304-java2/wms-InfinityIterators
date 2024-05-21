@@ -9,11 +9,16 @@
         Title,
         Author,
         Publisher,
-        ISBN
-<!--        NATIONCODE,-->
-<!--        GENRECODE-->
+        NationCode,
+        GenreCode
         FROM Book
-        ORDER BY TITLE;
+        ORDER BY BookID;
+    </select>
+
+    <select id = "selectInStock" resultType="com.infinityiterators.bookwms.receipt.model.dto.StockDTO">
+        SELECT BookID,
+        BookAmount
+        FROM Stock;
     </select>
 
     <insert id="addNewBook">
@@ -50,4 +55,26 @@
             #{ bookID }
         )
     </insert>
+
+    <select id="selectInRecord" resultType="com.infinityiterators.bookwms.receipt.model.dto.InRecordDTO">
+        SELECT
+        ReceiptID,
+        InAmount,
+        ReceiptDate,
+        BookID
+        FROM InRecord;
+    </select>
+
+    <insert id="insertInStock">
+        INSERT INTO Stock
+        (
+        BookID,
+        BookAmount
+        )
+        VALUES
+        ( (select MAX(BookID) FROM Book),
+        0
+        )
+    </insert>
+
 </mapper>

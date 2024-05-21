@@ -11,7 +11,7 @@ import java.util.Date;
 @ToString
 public class InRecordDTO {
 
-    private String InRecordID;
+    private String ReceiptID;
     private int InAmount;
     private Date ReceiptDate;
     private String BookID;

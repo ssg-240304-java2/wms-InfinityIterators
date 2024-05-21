@@ -15,10 +15,7 @@ public class BookDTO {
     private String title;
     private String author;
     private String publisher;
-    private String ISBN;
+//    private String ISBN;
     private String nationCode;
     private String genreCode;
-
-    private int inAmount;       // 입고량
-    private Date receiptDate;       // 입고일
 }

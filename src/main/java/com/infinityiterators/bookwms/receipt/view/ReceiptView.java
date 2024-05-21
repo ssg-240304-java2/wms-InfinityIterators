@@ -15,10 +15,12 @@ public class ReceiptView {
 
         do {         // Main Menu
             System.out.println("===== 서점 재고 관리 시스템 =====");
-            System.out.println("1. 전체 재고 현황 조회");
-            System.out.println("2. 입고하기");
-            System.out.println("3. 출고하기");
-            System.out.println("===============================");
+            System.out.println("1. 전체 도서 정보 조회");
+            System.out.println("2. 재고 조회");
+            System.out.println("3. 입고하기");
+            System.out.println("4. 출고하기");
+            System.out.println("5. 메인으로 돌아가기");
+            System.out.println("=============================");
             System.out.print("메뉴를 선택해주세요 : ");
             int no = sc.nextInt();
 
@@ -27,12 +29,17 @@ public class ReceiptView {
                     receiptController.selectAllBook();
                     break;
                 case 2:
+                    receiptController.selectInStock();
+                    break;
+                case 3:
                     receiptSubMenu();
                     break;
 //                case 2: receiptController.selectStockIn(inputBook()); break;
-                case 3:
+                case 4:
                     receiptController.selectOutOfStock();
                     break;
+                case 5:
+                    return;
                 default:
                     System.out.println("잘못된 메뉴를 선택하셨습니다.");
                     break;
@@ -47,10 +54,12 @@ public class ReceiptView {
         Scanner sc = new Scanner(System.in);
         ReceiptController receiptController = new ReceiptController();
 
-        do {         // Main Menu
+        do {         // Sub Menu
             System.out.println("===== 입고 시스템 =====");
             System.out.println("1. 신규 도서등록");
             System.out.println("2. 기존 도서입고");
+            System.out.println("3. 입고내역 조회하기");
+            System.out.println("4. 뒤로 가기");
             System.out.println("===============================");
             System.out.print("메뉴를 선택해주세요 : ");
             int no = sc.nextInt();
@@ -62,6 +71,11 @@ public class ReceiptView {
                 case 2:
                     receiptController.updateBook(inputModifyMenu());
                     break;
+                case 3:
+                    receiptController.selectInRecord();
+                    break;
+                case 4:
+                    return;
 
                 default:
                     System.out.println("잘못된 메뉴를 선택하셨습니다.");
@@ -73,7 +87,7 @@ public class ReceiptView {
     private static BookDTO inputBook() {        // 신규 도서 입력. 수량 빼고 도서 정보만 입력.
 
         Scanner sc = new Scanner(System.in);
-//        System.out.print("도서 코드를 입력하세요 : ");      // auto increment 처리하기
+//        System.out.print("도서 코드를 입력하세요 : ");      // auto-increment 처리
 //        String bookID = sc.nextLine();
         System.out.print("도서 제목을 입력하세요 : ");
         String title = sc.nextLine();
@@ -81,6 +95,10 @@ public class ReceiptView {
         String author = sc.nextLine();
         System.out.print("출판사를 입력하세요 : ");
         String publisher = sc.nextLine();
+        System.out.print("국가 코드를 입력하세요 : ");
+        String nationCode = sc.nextLine();
+        System.out.print("장르 코드를 입력하세요 : ");
+        String genreCode = sc.nextLine();
 
 
         BookDTO parameter = new BookDTO();
