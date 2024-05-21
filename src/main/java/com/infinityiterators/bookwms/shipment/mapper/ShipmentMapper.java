@@ -35,4 +35,8 @@ public interface ShipmentMapper {
     int selectShipmentPlay(StockOutDTO out);
 
     List<OutRecordDTO> selectShipmentDetails(OutRecordDTO details);
+
+
+
+    int insertOutRecord(StockOutDTO out);
 }
