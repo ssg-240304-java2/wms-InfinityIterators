@@ -6,7 +6,6 @@ import com.infinityiterators.bookwms.order.dto.CartItemDTO;
 import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.model.Cart;
-import com.infinityiterators.bookwms.order.model.CartItem;
 import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
@@ -78,9 +77,9 @@ public class OrderMainMenu {
                     Console.clear();
                     Menu.displayLogo();
 
-//                    String bookCode = requestString("도서 코드를 입력해주세요");
-//                    // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
-//                    orderController.searchBookByCode(bookCode);
+                    // String bookCode = requestString("도서 코드를 입력해주세요");
+                    // // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
+                    // orderController.searchBookByCode(bookCode);
                     break;
 
                 default:
@@ -116,11 +115,18 @@ public class OrderMainMenu {
         boolean isOrderCreated = orderController.createOrder(order, orderItems);
 
         if (isOrderCreated) {
+            // 생성된 주문 ID를 가져와서 설정
+            int orderId = order.getOrderId();
+            System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+            System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
+
             Console.print("주문이 성공적으로 생성되었습니다.", DisplayType.SYSTEM, true);
 
             String purchaseDecision = requestString("구매를 하시겠습니까? (Y/N)");
             if (purchaseDecision.equalsIgnoreCase("Y")) {
-                boolean isOrderCompleted = orderController.completeOrder(order.getOrderId());
+                // 주문 ID를 이용하여 주문 상태를 완료로 변경
+                order.setStatus("완료");
+                boolean isOrderCompleted = orderController.completeOrder(order);
                 if (isOrderCompleted) {
                     Console.print("구매가 성공적으로 완료되었습니다.", DisplayType.SYSTEM, true);
                     printReceipt(order, orderItems); // 영수증 출력 메서드 호출
@@ -148,7 +154,7 @@ public class OrderMainMenu {
         Console.print("주문 날짜: " + order.getOrderDate(), DisplayType.SYSTEM, true);
         Console.print("주문 상태: " + order.getStatus(), DisplayType.SYSTEM, true);
         for (OrderItemDTO orderItem : orderItems) {
-            System.out.println("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity());
+            Console.print("책 ID: " + orderItem.getBookID() + ", 수량: " + orderItem.getQuantity(), DisplayType.SYSTEM, true);
         }
     }
 }

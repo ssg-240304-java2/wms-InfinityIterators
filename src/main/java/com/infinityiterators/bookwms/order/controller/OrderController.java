@@ -27,11 +27,11 @@ public class OrderController {
         OrderMapper orderMapper = null;
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
-            // 주문 생성
             int result = orderMapper.insertOrder(order);
             if (result > 0) {
-                int orderId = order.getOrderId();
+                int orderId = order.getOrderId(); // 데이터베이스에서 생성된 orderId 가져오기
                 System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+                System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
 
                 // 주문 항목 생성
                 for (OrderItemDTO item : orderItems) {
@@ -107,7 +107,8 @@ public class OrderController {
 
     }
 
-    public boolean completeOrder(int orderId) { // OrderService의 completeOrder 메서드 호출로 수정
-        return orderService.completeOrder(orderId);
+    public boolean completeOrder(OrderDTO order) {
+        return orderService.completeOrder(order);
     }
+
 }

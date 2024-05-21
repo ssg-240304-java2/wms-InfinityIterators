@@ -4,6 +4,8 @@ import com.infinityiterators.bookwms.order.dao.OrderDAO;
 import com.infinityiterators.bookwms.order.dto.OrderDTO;
 import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.order.mapper.OrderMapper;
+import com.infinityiterators.bookwms.utils.interaction.Console;
+import com.infinityiterators.bookwms.utils.interaction.DisplayType;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -54,14 +56,49 @@ public class OrderService {
         return orderList;
     }
 
-    public boolean completeOrder(int orderId) {
+    // public boolean completeOrder(int orderId) {
+    // SqlSession sqlSession = getSqlSession();
+    // OrderMapper orderMapper = null;
+    // try {
+    // orderMapper = sqlSession.getMapper(OrderMapper.class);
+    // OrderDTO order = orderMapper.selectOrderById(orderId);
+    // if (order != null) {
+    // order.setStatus("완료");
+    // System.out.println("Updating order: " + order); // 디버깅 로그
+    // int result = orderMapper.updateOrder(order);
+    // if (result > 0) {
+    // sqlSession.commit();
+    // System.out.println("구매가 성공적으로 완료되었습니다."); // 디버깅 로그
+    // return true;
+    // } else {
+    // sqlSession.rollback();
+    // System.out.println("구매 완료에 실패하였습니다. (updateOrder 실패)"); // 디버깅 로그
+    // return false;
+    // }
+    // } else {
+    // System.out.println("구매 완료에 실패하였습니다. (주문을 찾을 수 없음)"); // 디버깅 로그
+    // return false;
+    // }
+    // } catch (Exception e) {
+    // sqlSession.rollback();
+    // e.printStackTrace();
+    // System.out.println("구매 완료에 실패하였습니다. (예외 발생)"); // 디버깅 로그
+    // return false;
+    // } finally {
+    // if (sqlSession != null) {
+    // sqlSession.close();
+    // }
+    // }
+    // }
+
+    public boolean completeOrder(OrderDTO order) {
         SqlSession sqlSession = getSqlSession();
         OrderMapper orderMapper = null;
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
-            OrderDTO order = orderMapper.selectOrderById(orderId);
             if (order != null) {
                 order.setStatus("완료");
+                System.out.println("Updating order: " + order); // 디버깅 로그
                 int result = orderMapper.updateOrder(order);
                 if (result > 0) {
                     sqlSession.commit();
