@@ -1,6 +1,7 @@
 package com.infinityiterators.bookwms.view;
 
 import com.infinityiterators.bookwms.account.User;
+import com.infinityiterators.bookwms.account.view.MyPageView;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
 public class CustomerMenu {
@@ -12,7 +13,7 @@ public class CustomerMenu {
 
             switch(Input.requestInt("메뉴를 선택하세요")) {
                 case 1:
-//                    new CustomerInfoMenu().displayMenu();
+                    new MyPageView().displayMenu(user);
                     break;
                 case 2:
                     return;
