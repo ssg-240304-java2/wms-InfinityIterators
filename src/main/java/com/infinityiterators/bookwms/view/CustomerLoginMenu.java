@@ -18,6 +18,12 @@ public class CustomerLoginMenu {
             switch(Input.requestInt("메뉴를 선택하세요")) {
                 case 1:
                     User login = login();
+                    if(login == null) {
+                        Console.printError("로그인에 실패했습니다.");
+                        break;
+                    }
+
+                    Console.print(login.getName() + "님 환영합니다.", DisplayType.SYSTEM, true);
                     new CustomerMenu().displayMenu(login);
                     break;
                 case 2:
