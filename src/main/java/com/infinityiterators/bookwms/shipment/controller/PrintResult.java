@@ -27,7 +27,7 @@ public class PrintResult {
                 errorMessage = "품절처리에 실패했습니다.";
                 break;
             case "outRecordDTO":
-                errorCode = "출고내역 처리에 실패했습니다.";
+                errorCode = "출고 내역 처리에 실패했습니다.";
                 break;
         }
         System.out.println(errorMessage);

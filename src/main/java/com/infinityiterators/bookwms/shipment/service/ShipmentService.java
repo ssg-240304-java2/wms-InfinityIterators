@@ -31,19 +31,30 @@ public class ShipmentService {
     // 출고하기
     public boolean selectShipmentPlay(StockOutDTO out) {
 
+        boolean sqlStatus = true;
         SqlSession sqlSession = getSqlSession();
 
         ShipmentMapper = sqlSession.getMapper(ShipmentMapper.class);
         int result = ShipmentMapper.selectShipmentPlay(out);
 
-        if (result > 0) {
+        if (result <= 0) {
+            sqlStatus = false;
+        } else {
+            result = ShipmentMapper.insertOutRecord(out);
+
+            if(result <= 0){
+                sqlStatus = false;
+            }
+        }
+
+        if (sqlStatus) {
             sqlSession.commit();
         } else {
             sqlSession.rollback();
         }
 
         sqlSession.close();
-        return result > 0 ? true : false;
+        return sqlStatus;
     }
 
 

@@ -30,11 +30,27 @@
     </delete>
 
     <select id="selectShipmentDetails" resultType="com.infinityiterators.bookwms.shipment.model.OutRecordDTO">
-        SELECT * FROM OutRecord
-        WHERE ShipmentID = #{ shipmentId }
-        AND   OutAmount = #{ outAmount }
-        AND   ShipmentDate = #{ shipmentDate }
-        AND   BookID = #{ bookId }
+        SELECT
+        ShipmentID,
+        OutAmount,
+        ShipmentDate,
+        BookID
+        FROM OutRecord
     </select>
+
+    <insert id = "insertOutRecord" >
+        INSERT INTO OutRecord
+        (
+        OutAmount,
+        ShipmentDate,
+        BookID
+        )
+        VALUES
+        (
+            #{ bookAmount },
+            SYSDATE(),
+            #{ bookID }
+        )
+    </insert>
 
 </mapper>
