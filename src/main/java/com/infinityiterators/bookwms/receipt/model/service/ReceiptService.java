@@ -43,19 +43,30 @@ public class ReceiptService {
     }
 
     public boolean updateBook(StockDTO stock) {
-
+        // 입고 이력 조회
+        boolean sqlStatus = true;
         SqlSession sqlSession = getSqlSession();
 
         receiptMapper = sqlSession.getMapper(ReceiptMapper.class);
         int result = receiptMapper.updateBook(stock);
 
-        if(result > 0){
+        if(result <= 0){
+            sqlStatus = false;
+        }else{
+            result = receiptMapper.insertInRecord(stock);
+
+            if(result <= 0){
+                sqlStatus = false;
+            }
+        }
+
+        if(sqlStatus){
             sqlSession.commit();
-        } else {
+        }else{
             sqlSession.rollback();
         }
 
         sqlSession.close();
-        return result > 0 ? true : false;
+        return sqlStatus;
     }
 }

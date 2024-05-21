@@ -32,7 +32,22 @@
 
     <update id="updateBook" parameterType="com.infinityiterators.bookwms.receipt.model.dto.StockDTO">
         UPDATE Stock
-        SET BookID = #{bookID}
-        , BookAmount = #{inAmount}
+        SET BookAmount = BookAmount + #{inAmount}
+        WHERE BookID = #{bookID}
     </update>
+
+    <insert id="insertInRecord">
+        INSERT INTO InRecord
+        (
+            InAmount,
+            ReceiptDate,
+            BookID
+        )
+        VALUES
+        (
+            #{ inAmount },
+            SYSDATE(),
+            #{ bookID }
+        )
+    </insert>
 </mapper>

@@ -38,12 +38,6 @@ public class ReceiptView {
                     break;
             }
 
-            // 추가입고 여부 확인
-            System.out.print("추가 입고하시겠습니까? (Y/N) : ");
-            String answer = sc.nextLine();
-            if (!answer.equalsIgnoreCase("Y")) {
-                break;
-            }
         } while (true);
     }
 
@@ -98,7 +92,7 @@ public class ReceiptView {
 
     }
 
-    private static StockDTO inputModifyMenu() {
+    private static StockDTO inputModifyMenu() {     // 기존 도서 수량 변경
 
         Scanner sc = new Scanner(System.in);
         System.out.print("입고할 도서 코드를 입력하세요 : ");

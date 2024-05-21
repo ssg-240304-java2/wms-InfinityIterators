@@ -39,4 +39,6 @@ public interface ReceiptMapper {
 //            " SET BookID = #{bookID}" +
 //            ", BookAmount = #{inAmount}")
     int updateBook(StockDTO stock);
+
+    int insertInRecord(StockDTO stock);
 }
