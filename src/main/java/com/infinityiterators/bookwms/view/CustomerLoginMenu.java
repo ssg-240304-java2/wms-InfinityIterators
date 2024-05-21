@@ -1,6 +1,6 @@
 package com.infinityiterators.bookwms.view;
 
-import com.infinityiterators.bookwms.account.User;
+import com.infinityiterators.bookwms.account.*;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
 import java.sql.Date;
@@ -45,10 +45,11 @@ public class CustomerLoginMenu {
         String id = Input.requestString("아이디를 입력하세요");
         String password = Input.requestString("비밀번호를 입력하세요");
 
-        // todo. validate id and password
-        // todo. return user
-
-        return null;
+        try {
+            return new AccountController().login(id, password);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void signUp() {
@@ -83,6 +84,7 @@ public class CustomerLoginMenu {
         String name = Input.requestString("이름을 입력하세요");
         String phoneNumber = Input.requestString("전화번호를 입력하세요");
         String address = Input.requestString("주소를 입력하세요");
+        String email = Input.requestString("이메일을 입력하세요");
         String dateOfBirth = Input.requestString("생년월일을 입력하세요 (yyyy-mm-dd)");
         // yyyy-mm-dd 서식에 맞게 입력되었는지 검사
         // Date.valueOf(Input.requestString("생년월일을 입력하세요 (yyyy-mm-dd)"));
@@ -91,7 +93,18 @@ public class CustomerLoginMenu {
             dateOfBirth = Input.requestString("생년월일을 입력하세요 (yyyy-mm-dd)");
         }
 
-        // todo. save customer
+        User user = new User();
+        user.setName(name);
+        user.setPhone(phoneNumber);
+        user.setAddress(address);
+        user.setEmail(email);
+        user.setDateOfBirth(Date.valueOf(LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+
+        Account account = new Account();
+        account.setId(id);
+        user.setAccount(account);
+
+        new AccountController().registerAccount(user, password);
     }
 
     private boolean isValidDate(String date) {
