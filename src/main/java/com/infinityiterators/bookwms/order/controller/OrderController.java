@@ -17,9 +17,9 @@ public class OrderController {
 
     public OrderController() {
         orderService = new OrderService();
-    /*추가 시작 라인*/
+        /* 추가 시작 라인 */
         printResult = new PrintResult();
-    /*추가 끝 라인*/
+        /* 추가 끝 라인 */
     }
 
     public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
@@ -27,25 +27,6 @@ public class OrderController {
         OrderMapper orderMapper = null;
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
-
-//            // 주문 생성
-//            int result = orderMapper.insertOrder(order);
-//            if (result > 0) {
-//                int orderId = order.getOrderId();
-//
-//                // 주문 항목 생성
-//                for (OrderItemDTO item : orderItems) {
-//                    item.setOrderId(orderId); // 각 주문 항목에 orderId 설정
-//                    orderMapper.insertOrderItem(item);
-//                }
-//                sqlSession.commit();
-//                System.out.println("주문이 성공적으로 생성되었습니다.");
-//                return true;
-//            } else {
-//                sqlSession.rollback();
-//                System.out.println("주문 생성에 실패하였습니다.");
-//                return false;
-//            }
             // 주문 생성
             int result = orderMapper.insertOrder(order);
             if (result > 0) {
@@ -118,7 +99,7 @@ public class OrderController {
 
         List<OrderDTO> orderList = orderService.selectAllOrder();
 
-        if(orderList != null && !orderList.isEmpty()) {
+        if (orderList != null && !orderList.isEmpty()) {
             printResult.printOrderList(orderList);
         } else {
             printResult.printErrorMessage("selectListError");
