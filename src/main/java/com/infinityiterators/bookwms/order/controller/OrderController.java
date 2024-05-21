@@ -126,33 +126,7 @@ public class OrderController {
 
     }
 
-    public boolean completeOrder(int orderId) {
-        SqlSession sqlSession = getSqlSession();
-        OrderMapper orderMapper = null;
-        try {
-            orderMapper = sqlSession.getMapper(OrderMapper.class);
-            OrderDTO order = orderMapper.selectOrderById(orderId);
-            if (order != null) {
-                order.setStatus("완료");
-                int result = orderMapper.updateOrder(order);
-                if (result > 0) {
-                    sqlSession.commit();
-                    return true;
-                } else {
-                    sqlSession.rollback();
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            sqlSession.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
-        }
+    public boolean completeOrder(int orderId) { // OrderService의 completeOrder 메서드 호출로 수정
+        return orderService.completeOrder(orderId);
     }
 }

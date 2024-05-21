@@ -36,7 +36,7 @@ public class OrderMainMenu {
 
     private static void displayMainMenu() {
         displayMenuHeader("주문 관리 시스템");
-        displaySelectionMenu("주문 하기", "주문 목록 조회");
+        displaySelectionMenu("주문 하기", "주문 목록 조회", "프로그램 종료");
 
         int no = requestInt("메뉴를 선택해주세요");
         switch (no) {
@@ -47,6 +47,9 @@ public class OrderMainMenu {
                 // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
                 orderController.selectAllOrder();
                 break;
+            case 3:
+                // 프로그램 종료
+                System.exit(0);
             default:
                 printResult.printErrorMessage("unselectError");
                 break;
@@ -56,10 +59,11 @@ public class OrderMainMenu {
     private static void orderBooks() {
         // 주문 메뉴에서 도서 주문을 처리하는 기능
         boolean ordering = true; // 주문을 계속할지 여부를 나타내는 변수
+        Console.clear(); // 화면을 초기화
 
         while (ordering) {
             displayMenuHeader("도서 주문 메뉴");
-            displaySelectionMenu("전체 도서 목록 조회", "도서 코드로 검색");
+            displaySelectionMenu("전체 도서 목록 조회 및 주문", "프로그램 종료");
 
             int searchOption = requestInt("검색 옵션을 선택해주세요");
             switch (searchOption) {
@@ -69,10 +73,15 @@ public class OrderMainMenu {
                     break;
 
                 case 2:
-                    String bookCode = requestString("도서 코드를 입력해주세요");
-                    // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
+                    // 프로그램 종료. 종료 하고 난 후 화면을 지우고 로고 출력
+                    ordering = false;
+                    Console.clear();
+                    Menu.displayLogo();
+
+//                    String bookCode = requestString("도서 코드를 입력해주세요");
+//                    // 도서 코드를 검색하여 해당 도서 정보를 출력하는 기능
 //                    orderController.searchBookByCode(bookCode);
-//                    break;
+                    break;
 
                 default:
                     Console.print("잘못된 메뉴를 선택하셨습니다.", DisplayType.ERROR, true);
@@ -92,6 +101,7 @@ public class OrderMainMenu {
         }
 
         checkout();
+        Console.clear();
     }
 
     private static void checkout() {

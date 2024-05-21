@@ -44,8 +44,7 @@ public class OrderService {
         return orderDAO.deleteOrder(orderId) > 0;
     }
 
-/* 시작 추가 라인*/
-    public List<OrderDTO> selectAllOrder() {
+    public List<OrderDTO> selectAllOrder() { // 채웅님 주문 전체 조회 메서드
         SqlSession sqlSession = getSqlSession();
 
         orderMapper = sqlSession.getMapper(OrderMapper.class);
@@ -54,5 +53,19 @@ public class OrderService {
         sqlSession.close();
         return orderList;
     }
-/* 끝 추가 라인*/
+
+    public boolean completeOrder(int orderId) {
+        SqlSession sqlSession = getSqlSession();
+        orderMapper = sqlSession.getMapper(OrderMapper.class);
+        OrderDTO order = orderMapper.selectOrderById(orderId);
+        if (order != null) {
+            order.setStatus("완료");
+            int result = orderMapper.updateOrder(order);
+            sqlSession.close();
+            return result > 0;
+        }
+        sqlSession.close();
+        return false;
+    }
+
 }
