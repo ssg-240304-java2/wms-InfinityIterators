@@ -1,9 +1,14 @@
 package com.infinityiterators.bookwms.account.view;
 
-import com.infinityiterators.bookwms.account.User;
+import com.infinityiterators.bookwms.account.*;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
 public class MyPageView {
+    /**
+     * target actor
+     * : Customer(User)
+     * @param user
+     */
     public void displayMenu(User user) {
         while(true) {
             Console.clear();
@@ -14,15 +19,12 @@ public class MyPageView {
             Console.print(user.toString(), DisplayType.DESCRIPTION, true);
 
             Console.print("", DisplayType.DESCRIPTION, true);
-            Menu.displaySelectionMenu("내 정보 수정", "회원 탈퇴", "뒤로 가기");
+            Menu.displaySelectionMenu("비밀번호 수정", "뒤로 가기");
 
             switch(Input.requestInt("메뉴를 선택하세요")) {
                 case 1:
-                    updateInfo(user);
+                    updatePassword(user);
                     break;
-                case 2:
-                    withdraw(user);
-                    return;
                 case 3:
                     return;
                 default:
@@ -33,23 +35,20 @@ public class MyPageView {
         }
     }
 
-    private void updateInfo(User user) {
+    private void updatePassword(User user) {
         Console.clear();
-        Menu.displayMenuHeader("내 정보 수정");
+        Menu.displayMenuHeader("비밀번호 변경");
 
-        String name = Input.requestString("이름을 입력하세요");
-        String phone = Input.requestString("전화번호를 입력하세요");
-        String address = Input.requestString("주소를 입력하세요");
+        String currentPassword = Input.requestString("현재 비밀번호를 입력하세요");
+        String newPassword = Input.requestString("새로운 비밀번호를 입력하세요");
+        String newPasswordConfirm = Input.requestString("새로운 비밀번호를 다시 입력하세요");
+
+        if(!newPassword.equals(newPasswordConfirm)) {
+            Console.printError("비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
+            return;
+        }
 
         // todo. update user info
-    }
-
-    private void withdraw(User user) {
-        Console.clear();
-        Menu.displayMenuHeader("회원 탈퇴");
-
-        if(Input.requestString("정말로 탈퇴하시겠습니까? (y/n)").equals("y")) {
-            // todo. withdraw user
-        }
+        new AccountController().changePassword(user, newPassword);
     }
 }
