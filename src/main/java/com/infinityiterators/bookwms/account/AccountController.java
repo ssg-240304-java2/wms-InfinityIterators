@@ -1,6 +1,7 @@
 package com.infinityiterators.bookwms.account;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class AccountController {
 
@@ -46,5 +47,36 @@ public class AccountController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 비밀번호 변경
+     * @param usr 사용자
+     * @param newPw 새로운 비밀번호
+     */
+    public void changePassword(User usr, String newPw) {
+        // update
+
+        // hash 및 솔트를 새로 생성
+        try {
+            String salt = EncryptionEngine.generateSalt();
+            String pwHash = EncryptionEngine.hashPassword(newPw, salt);
+
+            usr.getAccount().setPwHash(pwHash);
+            usr.getAccount().setPwSalt(salt);
+
+            // update
+            new AccountService().updateUser(usr);
+//            new AccountTaskLoggerService().insertCreateAccountTaskLog(usr);
+            new AccountTaskLoggerService().insertChangePasswordTaskLog(usr);
+
+        } catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> selectAllAccounts() {
+        List<User> users = new AccountService().selectAllUsers();
+        return users;
     }
 }
