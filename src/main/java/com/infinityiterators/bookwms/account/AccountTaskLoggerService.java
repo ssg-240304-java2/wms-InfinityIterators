@@ -51,4 +51,21 @@ public class AccountTaskLoggerService {
             sqlSession.close();
         }
     }
+
+    public void insertChangePasswordTaskLog(User usr) {
+        SqlSession sqlSession = getSqlSession();
+        AccountLogMapper accountLogMapper = sqlSession.getMapper(AccountLogMapper.class);
+
+        try {
+            accountLogMapper.insertChangePasswordTaskLog(usr);
+
+            sqlSession.commit();
+        } catch(Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 }
