@@ -1,5 +1,6 @@
 package com.infinityiterators.bookwms.receipt.Controller;
 
+import com.infinityiterators.bookwms.receipt.model.dto.InRecordDTO;
 import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
 import com.infinityiterators.bookwms.receipt.model.service.ReceiptService;
 import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
@@ -18,7 +19,7 @@ public class ReceiptController {
         receiptService = new ReceiptService();
     }
 
-    public void selectAllBook() {
+    public void selectAllBook() {       // 전체 재고 조회
 
         List<BookDTO> bookList = receiptService.selectAllBook();
 
@@ -30,8 +31,9 @@ public class ReceiptController {
     }
 
 
-    public void selectOutOfStock() {
+    public void selectOutOfStock() {        // 출고 파트 합칠 부분
     }
+
 
     public void printResultList(List<BookDTO> bookList){
 
@@ -46,11 +48,15 @@ public class ReceiptController {
         String title = parameter.getTitle();
         String author = parameter.getAuthor();
         String publisher = parameter.getPublisher();
+        String nationCode = parameter.getNationCode();
+        String genreCode = parameter.getGenreCode();
 
         BookDTO receipt = new BookDTO();
         receipt.setTitle(title);
         receipt.setAuthor(author);
         receipt.setPublisher(publisher);
+        receipt.setNationCode(nationCode);
+        receipt.setGenreCode(genreCode);
 
         if(receiptService.addNewBook(receipt)){
             printResult.printSuccessMessage("insert");
@@ -59,7 +65,7 @@ public class ReceiptController {
         }
     }
 
-    public void updateBook(StockDTO parameter){
+    public void updateBook(StockDTO parameter){     // 기존 도서 수량 변경
 
         String bookId = parameter.getBookID();
         int bookAmount = parameter.getInAmount();
@@ -74,5 +80,27 @@ public class ReceiptController {
             printResult.printErrorMessage("update");
         }
 
+    }
+
+    public void selectInRecord() {
+
+        List<InRecordDTO> inRecordList = receiptService.selectInRecord();
+
+        if(inRecordList != null){
+            printResult.printInRecord(inRecordList);
+        } else{
+            printResult.printErrorMessage("selectList");
+        }
+    }
+
+    public void selectInStock() {
+
+        List<StockDTO> stockList = receiptService.selectInStock();
+
+        if(stockList != null){
+            printResult.printStockList(stockList);
+        } else{
+            printResult.printErrorMessage("selectList");
+        }
     }
 }

@@ -65,10 +65,10 @@ public class ShipmentView {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("품절처리할 도서 코드를 입력하시오 : ");
-        String bookID = sc.nextLine();
+        String bookId = sc.nextLine();
 
         StockOutDTO parameter = new StockOutDTO();
-        parameter.setBookID(bookID);
+        parameter.setBookID(bookId);
 
         return parameter;
     }
@@ -78,14 +78,14 @@ public class ShipmentView {
 
         Scanner sc = new Scanner(System.in);
         System.out.print("출고할 도서 코드를 입력하세요 : ");
-        String bookID = sc.nextLine();
+        String bookId = sc.nextLine();
         System.out.print("출고할 도서 수량을 입력하세요 : ");
         int outAmount = sc.nextInt();
         sc.nextLine();
 
 
         StockOutDTO parameter = new StockOutDTO();
-        parameter.setBookID(bookID);
+        parameter.setBookID(bookId);
         parameter.setBookAmount(outAmount);
 
         return parameter;
