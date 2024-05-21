@@ -5,6 +5,7 @@
  */
 package com.infinityiterators.bookwms.order.view;
 
+import com.infinityiterators.bookwms.account.User;
 import com.infinityiterators.bookwms.order.controller.OrderController;
 import com.infinityiterators.bookwms.order.dao.OrderDAO;
 import com.infinityiterators.bookwms.order.dto.CartItemDTO;
@@ -29,16 +30,7 @@ public class OrderMainMenu {
     private static Cart cart = new Cart(1, 1); // 임시로 cartId와 userCode를 1로 설정
     private static ReceiptController receiptController = new ReceiptController();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        OrderController orderController = new OrderController();
-
-        while (true) {
-            displayMainMenu();
-        }
-    }
-
-    private static void displayMainMenu() {
+    public static void displayMainMenu(User user) {
         displayMenuHeader("주문 관리 시스템");
         displaySelectionMenu("주문 하기", "주문 목록 조회", "프로그램 종료");
 
@@ -120,7 +112,7 @@ public class OrderMainMenu {
         for (CartItemDTO cartItem : cart.getItems()) {
             OrderItemDTO orderItem = new OrderItemDTO(0, 0, cartItem.getBookId(), cartItem.getQuantity());
             orderItems.add(orderItem);
-            // System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
+//             System.out.println("OrderItemDTO: " + orderItem); // 디버깅 로그 추가
         }
 
         OrderDTO order = new OrderDTO(0, cart.getUserCode(), new Date(), "대기");
@@ -129,13 +121,13 @@ public class OrderMainMenu {
         if (isOrderCreated) {
             // 생성된 주문 ID를 가져와서 설정
             int orderId = order.getOrderId();
-            // System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
-            // System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
+//             System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+//             System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
 
             Console.print("주문이 성공적으로 생성되었습니다.", DisplayType.SYSTEM, true);
 
             String purchaseDecision = requestString("구매를 하시겠습니까? (y/n)");
-            if (purchaseDecision.equalsIgnoreCase("n")) {
+            if (purchaseDecision.equalsIgnoreCase("y")) {
                 // 주문 ID를 이용하여 주문 상태를 완료로 변경
                 order.setStatus("완료");
                 boolean isOrderCompleted = orderController.completeOrder(order);
