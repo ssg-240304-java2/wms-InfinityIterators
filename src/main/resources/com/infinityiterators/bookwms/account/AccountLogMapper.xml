@@ -29,4 +29,9 @@
         INSERT INTO account_task_log (executed_at, account_id, task_code)
         VALUES (CURRENT_TIMESTAMP, #{account.id}, 5)
     </insert>
+
+    <update id="insertChangePasswordTaskLog" parameterType="com.infinityiterators.bookwms.account.User">
+        INSERT INTO account_task_log (account_id, task_code)
+        VALUES (#{account.id}, 3)
+    </update>
 </mapper>

@@ -25,6 +25,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", account id='" + account.getId() + "'"+
                 '}';
     }
 }
