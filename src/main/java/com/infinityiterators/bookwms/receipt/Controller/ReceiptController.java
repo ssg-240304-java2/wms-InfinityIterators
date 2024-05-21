@@ -30,11 +30,6 @@ public class ReceiptController {
         }
     }
 
-
-    public void selectOutOfStock() {        // 출고 파트 합칠 부분
-    }
-
-
     public void printResultList(List<BookDTO> bookList){
 
         for(BookDTO book : bookList){

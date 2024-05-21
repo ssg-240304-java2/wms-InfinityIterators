@@ -3,6 +3,7 @@ package com.infinityiterators.bookwms.receipt.view;
 import com.infinityiterators.bookwms.receipt.model.dto.StockDTO;
 import com.infinityiterators.bookwms.receipt.Controller.ReceiptController;
 import com.infinityiterators.bookwms.receipt.model.dto.BookDTO;
+import com.infinityiterators.bookwms.shipment.view.ShipmentView;
 
 import java.util.Scanner;
 
@@ -17,8 +18,8 @@ public class ReceiptView {
             System.out.println("===== 서점 재고 관리 시스템 =====");
             System.out.println("1. 전체 도서 정보 조회");
             System.out.println("2. 재고 조회");
-            System.out.println("3. 입고하기");
-            System.out.println("4. 출고하기");
+            System.out.println("3. 입고 처리하기");
+            System.out.println("4. 출고메뉴로 이동");
             System.out.println("5. 메인으로 돌아가기");
             System.out.println("=============================");
             System.out.print("메뉴를 선택해주세요 : ");
@@ -36,7 +37,7 @@ public class ReceiptView {
                     break;
 //                case 2: receiptController.selectStockIn(inputBook()); break;
                 case 4:
-                    receiptController.selectOutOfStock();
+                    ShipmentView.main(null);
                     break;
                 case 5:
                     return;
@@ -47,7 +48,6 @@ public class ReceiptView {
 
         } while (true);
     }
-
 
     public static void receiptSubMenu() {
 
