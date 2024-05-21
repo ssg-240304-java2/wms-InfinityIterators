@@ -57,10 +57,12 @@ public class CustomerLoginMenu {
         Menu.displayMenuHeader("회원가입");
 
         String id = "";
-        boolean isIdDuplicated = true;
+        boolean isIdDuplicated;
         do {
             id = Input.requestString("아이디를 입력하세요");
-            // todo. check id duplication
+            isIdDuplicated = new AccountController().isDuplicatedId(id);
+
+            if(isIdDuplicated) Console.printError("이미 사용중인 아이디입니다.");
         } while(!isIdDuplicated);
 
         String password = Input.requestString("비밀번호를 입력하세요");
@@ -68,7 +70,7 @@ public class CustomerLoginMenu {
         final int PASSWORD_CHECK_LIMIT = 5;
         int passwordCheckCount = 0;
         while(true) {
-            String passwordCheck = Input.requestString("비밀번호를 다시 입력하세요");
+            String passwordCheck = Input.requestString("비밀번호를 다시 입력하세요" + (passwordCheckCount > 0 ? " (" + passwordCheckCount + "/" + PASSWORD_CHECK_LIMIT + "회)" : ""));
             if(password.equals(passwordCheck)) break;
             else {
                 Console.printError("비밀번호가 일치하지 않습니다.");
