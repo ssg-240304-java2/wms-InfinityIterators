@@ -62,7 +62,7 @@ public class OrderService {
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
             if (order != null) {
-                order.setStatus("완료");
+//                order.setStatus("완료"); // 임시
 //                System.out.println("Updating order: " + order); // 디버깅 로그
                 int result = orderMapper.updateOrder(order);
                 if (result > 0) {
