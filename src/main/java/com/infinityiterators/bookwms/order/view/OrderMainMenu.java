@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.infinityiterators.bookwms.cancelOrder.view.CancelView.UserOrderSearch;
 import static com.infinityiterators.bookwms.utils.interaction.Input.*;
 import static com.infinityiterators.bookwms.utils.interaction.Menu.displayMenuHeader;
 import static com.infinityiterators.bookwms.utils.interaction.Menu.displaySelectionMenu;
@@ -40,8 +41,8 @@ public class OrderMainMenu {
                 orderBooks();
                 break;
             case 2:
-                // todo: 주문 목록 조회 메뉴로 이동. 조회 메뉴 안에는 전체 주문 조회와 주문 삭제 기능이 필요 -> 채웅님
-                orderController.selectAllOrder();
+                // todo: 주문 목록 조회 메뉴(UserOrderSearch)로 이동. -> 채웅님
+                UserOrderSearch();
                 break;
             case 3:
                 // 프로그램 종료

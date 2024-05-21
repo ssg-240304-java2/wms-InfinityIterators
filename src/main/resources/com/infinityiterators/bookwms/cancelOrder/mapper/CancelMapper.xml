@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.infinityiterators.bookwms.cancelOrder.mapper.CancelMapper">
+
+
+    <select id="selectAllOrder" resultType="com.infinityiterators.bookwms.cancelOrder.model.dto.OrderDTO">
+        SELECT order_id AS orderId,
+               user_code AS userCode,
+               order_date AS orderDate,
+               status
+        FROM `Order`
+    </select>
+
+    <!-- 주문 취소하기 status: Cancelled 이후 Cancel 테이블에 삭제한 주문서 데이터 담기 -->
+    <update id="updateOrderStatusToCancelled" parameterType="int">
+        UPDATE `Order`
+        SET status = 'Cancelled'
+        WHERE order_id = #{orderId}
+    </update>
+
+    <insert id="cancelledOrder" parameterType="com.infinityiterators.bookwms.cancelOrder.model.dto.OrderDTO">
+        INSERT INTO `CancelOrder` (order_id, CancelDate, CancelReason)
+        VALUES (#{orderId}, SYSDATE(), 'Cancelled');
+    </insert>
+    <!-- 주문 취소하기 status: Cancelled 이후 Cancel 테이블에 삭제한 주문서 데이터 담기 -->
+
+</mapper>

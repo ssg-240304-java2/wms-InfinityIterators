@@ -18,9 +18,7 @@ public interface OrderMapper {
 
     int insertOrderItem(OrderItemDTO orderItem);
 
-    /*시작 라인 (취소용 조회)*/
     List<OrderDTO> selectAllOrder();
-    /*끝 라인 */
 
     List<OrderItemDTO> selectOrderItemsByOrderId(int orderId);
 
