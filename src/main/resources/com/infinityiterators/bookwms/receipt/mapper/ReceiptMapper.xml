@@ -27,18 +27,22 @@
             Title
         , Author
         , Publisher
+        , NationCode
+        , GenreCode
         )
         VALUES
         (
             #{ title }
         , #{ author }
         , #{ publisher }
+        , #{ nationCode }
+        , #{ genreCode }
         )
     </insert>
 
     <update id="updateBook" parameterType="com.infinityiterators.bookwms.receipt.model.dto.StockDTO">
         UPDATE Stock
-        SET BookAmount = BookAmount + #{inAmount}
+        SET BookAmount = BookAmount + #{bookAmount}
         WHERE BookID = #{bookID}
     </update>
 
@@ -51,7 +55,7 @@
         )
         VALUES
         (
-            #{ inAmount },
+            #{ bookAmount },
             SYSDATE(),
             #{ bookID }
         )
@@ -70,7 +74,7 @@
         INSERT INTO Stock
         (
         BookID,
-        BookAmount
+        InAmount
         )
         VALUES
         ( (select MAX(BookID) FROM Book),

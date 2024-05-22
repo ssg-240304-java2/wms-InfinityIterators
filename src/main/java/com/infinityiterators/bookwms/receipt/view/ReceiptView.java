@@ -18,7 +18,7 @@ public class ReceiptView {
             System.out.println("===== 서점 재고 관리 시스템 =====");
             System.out.println("1. 전체 도서 정보 조회");
             System.out.println("2. 재고 조회");
-            System.out.println("3. 입고 처리하기");
+            System.out.println("3. 입고 메뉴로 이동");
             System.out.println("4. 출고메뉴로 이동");
             System.out.println("5. 메인으로 돌아가기");
             System.out.println("=============================");
@@ -58,7 +58,7 @@ public class ReceiptView {
             System.out.println("===== 입고 시스템 =====");
             System.out.println("1. 신규 도서등록");
             System.out.println("2. 기존 도서입고");
-            System.out.println("3. 입고내역 조회하기");
+            System.out.println("3. 입고내역 조회");
             System.out.println("4. 뒤로 가기");
             System.out.println("===============================");
             System.out.print("메뉴를 선택해주세요 : ");
@@ -105,6 +105,8 @@ public class ReceiptView {
         parameter.setTitle(title);
         parameter.setAuthor(author);
         parameter.setPublisher(publisher);
+        parameter.setNationCode(nationCode);
+        parameter.setGenreCode(genreCode);
 
         return parameter;
 
