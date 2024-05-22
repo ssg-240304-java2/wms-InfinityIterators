@@ -10,6 +10,5 @@ import lombok.*;
 public class StockDTO {
 
     private String bookID;
-    private int inAmount;
-    private String status;
+    private int bookAmount;
 }

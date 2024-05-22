@@ -1,5 +1,6 @@
 package com.infinityiterators.bookwms.shipment.mapper;
 
+import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.shipment.model.OrderDTO;
 import com.infinityiterators.bookwms.shipment.model.OutRecordDTO;
 import com.infinityiterators.bookwms.shipment.model.StockOutDTO;
@@ -32,11 +33,17 @@ public interface ShipmentMapper {
 //            " SET BookID = #{ bookId}")
     int soldOut(StockOutDTO book);
 
-    int selectShipmentPlay(StockOutDTO out);
+    int selectShipmentPlay(int orderId);
 
     List<OutRecordDTO> selectShipmentDetails(OutRecordDTO details);
 
 
 
-    int insertOutRecord(StockOutDTO out);
+    int insertOutRecord(int orderId);
+
+    List<OrderItemDTO> selectOrderItem(int orderId);
+
+    int updateStatus(int orderId);
+
+    int verifAmount();
 }

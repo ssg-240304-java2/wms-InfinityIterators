@@ -77,21 +77,28 @@ public class ShipmentView {
     }
 
 
-    private static StockOutDTO shipmentPlay() {
+    private static int shipmentPlay() {
+
+//        Scanner sc = new Scanner(System.in);
+//        System.out.print("출고할 도서 코드를 입력하세요 : ");
+//        String bookId = sc.nextLine();
+//        System.out.print("출고할 도서 수량을 입력하세요 : ");
+//        int outAmount = sc.nextInt();
+//        sc.nextLine();
+//
+//
+//        StockOutDTO parameter = new StockOutDTO();
+//        parameter.setBookID(bookId);
+//        parameter.setBookAmount(outAmount);
+//
+//        return parameter;
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("출고할 도서 코드를 입력하세요 : ");
-        String bookId = sc.nextLine();
-        System.out.print("출고할 도서 수량을 입력하세요 : ");
-        int outAmount = sc.nextInt();
+        System.out.print("주문번호를 입력하세요 : ");
+        int orderId = sc.nextInt();
         sc.nextLine();
 
-
-        StockOutDTO parameter = new StockOutDTO();
-        parameter.setBookID(bookId);
-        parameter.setBookAmount(outAmount);
-
-        return parameter;
+        return orderId;
     }
 }
 

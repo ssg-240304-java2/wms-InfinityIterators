@@ -13,9 +13,10 @@
     </select>
 
     <update id="selectShipmentPlay">
-        UPDATE Stock
-        SET BookAmount = BookAmount - #{ bookAmount }
-        WHERE BookID = #{ bookID }
+        UPDATE Stock S, OrderItem OI SET
+        S.BookAmount = S.BookAmount - OI.quantity
+        WHERE S.BookID = OI.BookID
+        AND OI.order_id = #{orderId}
     </update>
 
     <update id="selectSoldOut">
@@ -46,12 +47,25 @@
         ShipmentDate,
         BookID
         )
-        VALUES
-        (
-            #{ bookAmount },
-            SYSDATE(),
-            #{ bookID }
-        )
+        SELECT
+        quantity,
+        SYSDATE(),
+        BookID
+        FROM OrderItem
+        WHERE order_id = #{orderId}
     </insert>
 
+    <select id="selectOrderItem" resultType="com.infinityiterators.bookwms.order.dto.OrderItemDTO">
+        SELECT * FROM OrderItem WHERE order_id = #{orderId}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE `Order` SET
+        status = '완료'
+        WHERE order_id = #{orderId}
+    </update>
+
+    <select id="verifAmount" resultType="_int">
+        SELECT COUNT(*) FROM Stock WHERE BookAmount &lt; 0
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.infinityiterators.bookwms.shipment.service;
 
+import com.infinityiterators.bookwms.order.dto.OrderItemDTO;
 import com.infinityiterators.bookwms.shipment.mapper.ShipmentMapper;
 import com.infinityiterators.bookwms.shipment.model.OrderDTO;
 import com.infinityiterators.bookwms.shipment.model.OutRecordDTO;
@@ -29,20 +30,49 @@ public class ShipmentService {
 
 
     // 출고하기
-    public boolean selectShipmentPlay(StockOutDTO out) {
+    public boolean selectShipmentPlay(int orderId) {
 
         boolean sqlStatus = true;
-        SqlSession sqlSession = getSqlSession();
 
+        // sql세션 설정 (+)
+        SqlSession sqlSession = getSqlSession();
         ShipmentMapper = sqlSession.getMapper(ShipmentMapper.class);
-        int result = ShipmentMapper.selectShipmentPlay(out);
+        // sql세션 설정 (-)
+
+        List<OrderItemDTO> orderItemList = ShipmentMapper.selectOrderItem(orderId);
+
+        if (orderItemList == null) {
+            sqlStatus = false;
+        }
+        int result = 0;
+
+        result = ShipmentMapper.selectShipmentPlay(orderId);
 
         if (result <= 0) {
             sqlStatus = false;
-        } else {
-            result = ShipmentMapper.insertOutRecord(out);
+        }
 
-            if(result <= 0){
+        if(sqlStatus) {
+            result = ShipmentMapper.insertOutRecord(orderId);
+
+            if (result <= 0) {
+                sqlStatus = false;
+            }
+        }
+
+        if(sqlStatus){
+            result = ShipmentMapper.updateStatus(orderId);
+
+            if (result <= 0) {
+                sqlStatus = false;
+            }
+        }
+
+        if (sqlStatus) {
+            result = ShipmentMapper.verifAmount();
+
+            if (result != 0) {
+                System.out.println("재고가 충분하지 않습니다 !!");
                 sqlStatus = false;
             }
         }
