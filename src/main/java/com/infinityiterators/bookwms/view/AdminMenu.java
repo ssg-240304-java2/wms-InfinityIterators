@@ -11,16 +11,13 @@ public class AdminMenu {
             Menu.displayLogo();
 
             Menu.displayMenuHeader("관리자 메뉴");
-            Menu.displaySelectionMenu("회원 관리", "입출고 관리", "메인 메뉴");
+            Menu.displaySelectionMenu("입출고 관리", "메인 메뉴");
 
             switch(Input.requestInt("메뉴를 선택하세요")) {
                 case 1:
-                    new AdminAccountMainMenu().displayMenu();
-                    break;
-                case 2:
                     ReceiptView.receiptMain();
                     break;
-                case 3:
+                case 2:
                     return;
                 default:
                     Console.printError("잘못된 입력입니다.");

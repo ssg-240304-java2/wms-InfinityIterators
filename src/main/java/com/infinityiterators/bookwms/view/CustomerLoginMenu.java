@@ -12,6 +12,7 @@ public class CustomerLoginMenu {
 
         while(true) {
             Console.clear();
+            Menu.displayLogo();
             Menu.displayMenuHeader("로그인");
             Menu.displaySelectionMenu("로그인", "회원가입", "메인 메뉴");
 
@@ -19,7 +20,13 @@ public class CustomerLoginMenu {
                 case 1:
                     User login = login();
                     if(login == null) {
-                        Console.printError("로그인에 실패했습니다.");
+                        Console.printError("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+                        // 2초 대기
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
 
@@ -40,6 +47,7 @@ public class CustomerLoginMenu {
 
     private User login() {
         Console.clear();
+        Menu.displayLogo();
         Menu.displayMenuHeader("로그인");
 
         String id = Input.requestString("아이디를 입력하세요");
@@ -48,12 +56,13 @@ public class CustomerLoginMenu {
         try {
             return new AccountController().login(id, password);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return null;
         }
     }
 
     private void signUp() {
         Console.clear();
+        Menu.displayLogo();
         Menu.displayMenuHeader("회원가입");
 
         String id = "";
@@ -107,6 +116,14 @@ public class CustomerLoginMenu {
         user.setAccount(account);
 
         new AccountController().registerAccount(user, password);
+
+        Console.print("회원가입이 완료되었습니다.", DisplayType.SYSTEM, true);
+        // 2초 대기
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isValidDate(String date) {

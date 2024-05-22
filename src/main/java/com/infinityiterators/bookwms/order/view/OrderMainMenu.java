@@ -42,7 +42,7 @@ public class OrderMainMenu {
                 break;
             case 2:
                 // todo: 주문 목록 조회 메뉴(UserOrderSearch)로 이동. -> 채웅님
-                UserOrderSearch();
+                UserOrderSearch(user);
                 break;
             case 3:
                 // 프로그램 종료
