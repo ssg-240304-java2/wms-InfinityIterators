@@ -63,7 +63,7 @@ public class CustomerLoginMenu {
             isIdDuplicated = new AccountController().isDuplicatedId(id);
 
             if(isIdDuplicated) Console.printError("이미 사용중인 아이디입니다.");
-        } while(!isIdDuplicated);
+        } while(isIdDuplicated);
 
         String password = Input.requestString("비밀번호를 입력하세요");
 
