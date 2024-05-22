@@ -25,7 +25,7 @@ public class MyPageView {
                 case 1:
                     updatePassword(user);
                     break;
-                case 3:
+                case 2:
                     return;
                 default:
                     Console.printError("잘못된 입력입니다.");

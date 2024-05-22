@@ -1,5 +1,6 @@
 package com.infinityiterators.bookwms.view;
 
+import com.infinityiterators.bookwms.account.view.AdminAccountMainMenu;
 import com.infinityiterators.bookwms.utils.interaction.*;
 
 public class AdminMenu {
@@ -13,7 +14,7 @@ public class AdminMenu {
 
             switch(Input.requestInt("메뉴를 선택하세요")) {
                 case 1:
-//                    new MemberMenu().displayMenu();
+                    new AdminAccountMainMenu().displayMenu();
                     break;
                 case 2:
                     return;

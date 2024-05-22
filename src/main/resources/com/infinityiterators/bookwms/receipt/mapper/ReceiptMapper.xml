@@ -17,7 +17,8 @@
 
     <select id = "selectInStock" resultType="com.infinityiterators.bookwms.receipt.model.dto.StockDTO">
         SELECT BookID,
-        BookAmount
+        BookAmount,
+        Status
         FROM Stock;
     </select>
 

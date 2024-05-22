@@ -17,9 +17,9 @@ public class OrderController {
 
     public OrderController() {
         orderService = new OrderService();
-    /*추가 시작 라인*/
+        /* 추가 시작 라인 */
         printResult = new PrintResult();
-    /*추가 끝 라인*/
+        /* 추가 끝 라인 */
     }
 
     public boolean createOrder(OrderDTO order, List<OrderItemDTO> orderItems) {
@@ -27,30 +27,11 @@ public class OrderController {
         OrderMapper orderMapper = null;
         try {
             orderMapper = sqlSession.getMapper(OrderMapper.class);
-
-//            // 주문 생성
-//            int result = orderMapper.insertOrder(order);
-//            if (result > 0) {
-//                int orderId = order.getOrderId();
-//
-//                // 주문 항목 생성
-//                for (OrderItemDTO item : orderItems) {
-//                    item.setOrderId(orderId); // 각 주문 항목에 orderId 설정
-//                    orderMapper.insertOrderItem(item);
-//                }
-//                sqlSession.commit();
-//                System.out.println("주문이 성공적으로 생성되었습니다.");
-//                return true;
-//            } else {
-//                sqlSession.rollback();
-//                System.out.println("주문 생성에 실패하였습니다.");
-//                return false;
-//            }
-            // 주문 생성
             int result = orderMapper.insertOrder(order);
             if (result > 0) {
-                int orderId = order.getOrderId();
-                System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+                int orderId = order.getOrderId(); // 데이터베이스에서 생성된 orderId 가져오기
+//                System.out.println("생성된 주문 ID: " + orderId); // 디버깅 로그 추가
+//                System.out.println("OrderDTO 상태: " + order); // 디버깅 로그 추가
 
                 // 주문 항목 생성
                 for (OrderItemDTO item : orderItems) {
@@ -58,11 +39,9 @@ public class OrderController {
                     orderMapper.insertOrderItem(item);
                 }
                 sqlSession.commit();
-                System.out.println("주문이 성공적으로 생성되었습니다.");
                 return true;
             } else {
                 sqlSession.rollback();
-                System.out.println("주문 생성에 실패하였습니다.");
                 return false;
             }
         } catch (Exception e) {
@@ -118,7 +97,7 @@ public class OrderController {
 
         List<OrderDTO> orderList = orderService.selectAllOrder();
 
-        if(orderList != null && !orderList.isEmpty()) {
+        if (orderList != null && !orderList.isEmpty()) {
             printResult.printOrderList(orderList);
         } else {
             printResult.printErrorMessage("selectListError");
@@ -126,33 +105,8 @@ public class OrderController {
 
     }
 
-    public boolean completeOrder(int orderId) {
-        SqlSession sqlSession = getSqlSession();
-        OrderMapper orderMapper = null;
-        try {
-            orderMapper = sqlSession.getMapper(OrderMapper.class);
-            OrderDTO order = orderMapper.selectOrderById(orderId);
-            if (order != null) {
-                order.setStatus("완료");
-                int result = orderMapper.updateOrder(order);
-                if (result > 0) {
-                    sqlSession.commit();
-                    return true;
-                } else {
-                    sqlSession.rollback();
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            sqlSession.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
-        }
+    public boolean completeOrder(OrderDTO order) {
+        return orderService.completeOrder(order);
     }
+
 }

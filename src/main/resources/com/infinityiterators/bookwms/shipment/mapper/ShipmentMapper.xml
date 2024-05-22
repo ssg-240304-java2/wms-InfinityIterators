@@ -25,10 +25,11 @@
         , BookAmount = #{outAmount}
     </update>
 
-    <delete id="soldOut">
-        DELETE FROM Book
-        WHERE BookID = #{ bookID }
-    </delete>
+    <update id="soldOut">
+        UPDATE Stock
+        SET Status = 'Y'
+        WHERE BookAmount = 0;
+    </update>
 
     <select id="selectShipmentDetails" resultType="com.infinityiterators.bookwms.shipment.model.OutRecordDTO">
         SELECT

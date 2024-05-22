@@ -24,9 +24,12 @@ public class OrderDAO {
     public OrderDTO selectOrderById(int orderId) {
         try (SqlSession sqlSession = getSqlSession()) {
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-            return orderMapper.selectOrderById(orderId);
+            OrderDTO order = orderMapper.selectOrderById(orderId);
+//            System.out.println("Fetched OrderDTO: " + order); // 디버깅 로그 추가
+            return order;
         }
     }
+
 
     public List<OrderDTO> selectAllOrders() {
         try (SqlSession sqlSession = getSqlSession()) {
