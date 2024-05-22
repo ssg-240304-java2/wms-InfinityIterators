@@ -9,6 +9,8 @@ public class CustomerMenu {
     public void displayMenu(User user) {
         while(true) {
             Console.clear();
+            Console.print(user.getName() + "님 환영합니다.", DisplayType.SYSTEM, true);
+
             Menu.displayMenuHeader("고객 메뉴");
             Menu.displaySelectionMenu("내 정보", "주문하러 가기", "로그아웃");
 
