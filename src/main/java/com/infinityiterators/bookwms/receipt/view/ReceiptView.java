@@ -116,12 +116,12 @@ public class ReceiptView {
         System.out.print("입고할 도서 코드를 입력하세요 : ");
         String bookID = sc.nextLine();
         System.out.print("입고량을 입력하세요 : ");
-        int inAmount = sc.nextInt();
+        int bookAmount = sc.nextInt();
         sc.nextLine();
 
         StockDTO parameter = new StockDTO();
         parameter.setBookID(bookID);
-        parameter.setInAmount(inAmount);
+        parameter.setBookAmount(bookAmount);
 
         return parameter;
     }

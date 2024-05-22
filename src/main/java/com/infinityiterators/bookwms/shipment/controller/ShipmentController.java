@@ -33,17 +33,17 @@ public class ShipmentController {
 
 
 
-        public void selectShipmentPlay(StockOutDTO parameter) {         // 출고하기
+        public void selectShipmentPlay(int orderId) {         // 출고하기
 //        Scanner sc = new Scanner(System.in);
 
-        String bookId = parameter.getBookID();
-        int bookAmount = parameter.getBookAmount();
+//        String bookId = parameter.getBookID();
+//        int bookAmount = parameter.getBookAmount();
 
-        StockOutDTO out = new StockOutDTO();
-        out.setBookID(bookId);
-        out.setBookAmount(bookAmount);
+//        StockOutDTO out = new StockOutDTO();
+//        out.setBookID(bookId);
+//        out.setBookAmount(bookAmount);
 
-        if (shipmentService.selectShipmentPlay(out)) {
+        if (shipmentService.selectShipmentPlay(orderId)) {
             printResult.printSuccessMessage("update");
         } else {
             printResult.printErrorMessage("update");

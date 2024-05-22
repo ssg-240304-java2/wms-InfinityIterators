@@ -63,11 +63,11 @@ public class ReceiptController {
     public void updateBook(StockDTO parameter){     // 기존 도서 수량 변경
 
         String bookId = parameter.getBookID();
-        int bookAmount = parameter.getInAmount();
+        int bookAmount = parameter.getBookAmount();
 
         StockDTO stock = new StockDTO();
         stock.setBookID(bookId);
-        stock.setInAmount(bookAmount);
+        stock.setBookAmount(bookAmount);
 
         if(receiptService.updateBook(stock)){
             printResult.printSuccessMessage("update");
