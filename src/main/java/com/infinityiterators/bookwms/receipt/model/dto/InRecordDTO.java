@@ -12,7 +12,7 @@ import java.util.Date;
 public class InRecordDTO {
 
     private String ReceiptID;
-    private int InAmount;
+    private int inAmount;
     private Date ReceiptDate;
     private String BookID;
 }
