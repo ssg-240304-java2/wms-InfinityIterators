@@ -23,7 +23,7 @@ public class CustomerLoginMenu {
                         break;
                     }
 
-                    Console.print(login.getName() + "님 환영합니다.", DisplayType.SYSTEM, true);
+//                    Console.print(login.getName() + "님 환영합니다.", DisplayType.SYSTEM, true);
                     new CustomerMenu().displayMenu(login);
                     break;
                 case 2:
@@ -43,7 +43,7 @@ public class CustomerLoginMenu {
         Menu.displayMenuHeader("로그인");
 
         String id = Input.requestString("아이디를 입력하세요");
-        String password = Input.requestString("비밀번호를 입력하세요");
+        String password = Input.requestHiddenInput("비밀번호를 입력하세요");
 
         try {
             return new AccountController().login(id, password);
@@ -65,12 +65,12 @@ public class CustomerLoginMenu {
             if(isIdDuplicated) Console.printError("이미 사용중인 아이디입니다.");
         } while(isIdDuplicated);
 
-        String password = Input.requestString("비밀번호를 입력하세요");
+        String password = Input.requestHiddenInput("비밀번호를 입력하세요");
 
         final int PASSWORD_CHECK_LIMIT = 5;
         int passwordCheckCount = 0;
         while(true) {
-            String passwordCheck = Input.requestString("비밀번호를 다시 입력하세요" + (passwordCheckCount > 0 ? " (" + passwordCheckCount + "/" + PASSWORD_CHECK_LIMIT + "회)" : ""));
+            String passwordCheck = Input.requestHiddenInput("비밀번호를 다시 입력하세요" + (passwordCheckCount > 0 ? " (" + passwordCheckCount + "/" + PASSWORD_CHECK_LIMIT + "회)" : ""));
             if(password.equals(passwordCheck)) break;
             else {
                 Console.printError("비밀번호가 일치하지 않습니다.");
