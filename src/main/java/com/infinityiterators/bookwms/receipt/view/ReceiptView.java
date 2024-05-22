@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ReceiptView {
 
-    public static void main(String[] args) {
+    public static void receiptMain() {
 
         Scanner sc = new Scanner(System.in);
         ReceiptController receiptController = new ReceiptController();
